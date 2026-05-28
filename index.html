@@ -20,53 +20,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(168,212,86,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(168,212,86,0.02) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
 .app{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* ── LOADING OVERLAY ── */
-.load-ov{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s}
-.load-ov.hidden{opacity:0;pointer-events:none}
-.load-logo{width:52px;height:52px;background:var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:26px;color:var(--bg);animation:pulse 1.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.96)}}
-.load-text{font-size:13px;color:var(--text3);letter-spacing:.04em}
-.load-bar{width:180px;height:2px;background:var(--bg4);border-radius:1px;overflow:hidden}
-.load-bar-fill{height:100%;background:var(--accent);border-radius:1px;width:0;transition:width .3s ease}
-
-/* ── HEADER ── */
-.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-shrink:0;z-index:100;gap:12px}
-.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+/* HEADER */
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-shrink:0;z-index:100}
+.brand{display:flex;align-items:center;gap:12px}
 .logo{width:34px;height:34px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:17px;color:var(--bg)}
 .brand-name{font-family:'DM Serif Display',serif;font-size:16px}
 .brand-sub{font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
-.nav-tabs{display:flex;gap:2px;background:var(--bg3);border-radius:var(--r);padding:3px;flex-shrink:0}
+.nav-tabs{display:flex;gap:2px;background:var(--bg3);border-radius:var(--r);padding:3px}
 .nav-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:6px 16px;border:none;background:transparent;color:var(--text3);cursor:pointer;border-radius:var(--r-sm);transition:all .15s;display:flex;align-items:center;gap:6px}
 .nav-tab:hover{color:var(--text2)}
 .nav-tab.active{background:var(--bg5);color:var(--accent)}
-
-/* ── SYNC STATUS ── */
-.sync-area{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.sync-pill{display:flex;align-items:center;gap:6px;font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);transition:all .2s;user-select:none;white-space:nowrap}
-.sync-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;transition:background .2s}
-.sync-pill.saved{border-color:rgba(74,207,130,.25);color:var(--success)}.sync-pill.saved .sync-dot{background:var(--success)}
-.sync-pill.saving{border-color:rgba(168,212,86,.25);color:var(--accent)}.sync-pill.saving .sync-dot{background:var(--accent);animation:pulse 1s infinite}
-.sync-pill.pending{border-color:rgba(232,160,58,.2);color:var(--warn)}.sync-pill.pending .sync-dot{background:var(--warn)}
-.sync-pill.error{border-color:rgba(232,97,74,.25);color:var(--danger)}.sync-pill.error .sync-dot{background:var(--danger)}
-.sync-pill.offline{border-color:var(--border);color:var(--text3)}.sync-pill.offline .sync-dot{background:var(--text3)}
-.sync-pill.loading{border-color:rgba(90,157,232,.25);color:var(--info)}.sync-pill.loading .sync-dot{background:var(--info);animation:pulse .8s infinite}
-
-.header-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 13px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.header-right{display:flex;align-items:center;gap:8px}
+.sync-indicator{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);padding:5px 10px;border-radius:var(--r-sm);background:var(--bg3)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background .3s}
+.sync-dot.syncing{background:var(--warn);animation:pulse 1s infinite}
+.sync-dot.ok{background:var(--success)}
+.sync-dot.error{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 14px;border-radius:var(--r-sm);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
 .btn:hover{background:var(--bg3);color:var(--text)}
-.btn:disabled{opacity:.4;cursor:default}
+.btn:disabled{opacity:.4;cursor:not-allowed}
 .btn-accent{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .btn-accent:hover{background:#b8e460;color:var(--bg)}
-.btn-danger{border-color:rgba(232,97,74,.3);color:var(--danger)}
-.btn-danger:hover{background:rgba(232,97,74,.08)}
 .btn svg{width:13px;height:13px;flex-shrink:0}
 
-/* ── BODY LAYOUT ── */
+/* BODY LAYOUT */
 .body-wrap{display:flex;flex:1;overflow:hidden}
 .sidebar{width:230px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;padding:14px 10px}
 .content{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 
-/* ── SIDEBAR ── */
+/* SIDEBAR */
 .s-section{margin-bottom:6px}
 .s-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:6px 8px 4px}
 .s-item{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:var(--r-sm);cursor:pointer;transition:all .14s;font-size:12px;color:var(--text2)}
@@ -83,16 +66,16 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .prog-bar{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
 .prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
 
-/* ── STATS BAR ── */
+/* STATS BAR */
 .stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);flex-shrink:0}
-.stat-cell{background:var(--bg2);padding:14px 20px;transition:background .15s;cursor:default}
+.stat-cell{background:var(--bg2);padding:14px 20px;transition:background .15s}
 .stat-cell:hover{background:var(--bg3)}
 .stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
 .stat-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--text);line-height:1}
 .stat-val span{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text3);margin-left:3px}
 .stat-sub{font-size:10px;color:var(--text3);margin-top:3px}
 
-/* ── TOOLBAR ── */
+/* TOOLBAR */
 .toolbar{padding:12px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;flex-wrap:wrap}
 .search-wrap{position:relative;flex:1;min-width:180px}
 .search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text3);pointer-events:none}
@@ -102,7 +85,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .sel{font-family:'DM Sans',sans-serif;font-size:12px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:var(--r-sm);padding:8px 10px;outline:none;cursor:pointer;transition:border-color .15s}
 .sel:focus{border-color:var(--accent)}
 
-/* ── ACCOUNT LIST ── */
+/* ACCOUNT LIST */
 .account-list{padding:16px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
 .acc-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;animation:fadeIn .3s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -126,19 +109,22 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .sc-hi{color:var(--accent)}.sc-mi{color:var(--warn)}.sc-lo{color:var(--text3)}
 .chev{width:18px;height:18px;color:var(--text3);transition:transform .2s}
 .open .chev{transform:rotate(180deg)}
+.tier-pill{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:500;display:inline-block}
+.t1{background:rgba(90,157,232,.12);color:#5a9de8}.t2{background:rgba(168,212,86,.12);color:#a8d456}.ts{background:rgba(232,160,58,.12);color:#e8a03a}
 
-/* ── PANEL ── */
+/* PANEL */
 .panel{display:none;border-top:1px solid var(--border)}
 .open .panel{display:block}
 .panel-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 16px}
 .ptab{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:9px 14px;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .14s}
 .ptab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .ptab:hover:not(.active){color:var(--text2)}
-.tc{display:none;padding:16px}.tc.active{display:block}
+.tc{display:none;padding:16px}
+.tc.active{display:block}
 
-/* ── OVERVIEW ── */
+/* INFO / FORM */
 .ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.ov-full{grid-column:span 3}.ov-half{grid-column:span 2}
+.ov-full{grid-column:span 3}
 .info-b{background:var(--bg3);border-radius:var(--r-sm);padding:10px 12px;border:1px solid var(--border)}
 .info-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;font-weight:600}
 .info-val{font-size:12px;color:var(--text);line-height:1.5}
@@ -150,10 +136,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .sc-lbl{font-size:9px;color:var(--text3);margin-bottom:5px;letter-spacing:.03em}
 .sc-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:14px;margin:0 auto}
 .sc5{background:rgba(74,207,130,.15);color:#4acf82}.sc4{background:rgba(168,212,86,.15);color:#a8d456}
-.sc3{background:rgba(232,160,58,.15);color:#e8a03a}.sc2{background:rgba(232,97,74,.12);color:#e8614a}
-.sc1{background:var(--bg4);color:var(--text3)}
-
-/* ── CONTACT TAB ── */
+.sc3{background:rgba(232,160,58,.15);color:#e8a03a}.sc2{background:rgba(232,97,74,.12);color:#e8614a}.sc1{background:var(--bg4);color:var(--text3)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .ct-full{grid-column:span 2}
 .field-g{display:flex;flex-direction:column;gap:4px}
@@ -162,13 +145,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .finput:focus,.fsel:focus,.ftarea:focus{border-color:var(--accent);background:var(--bg4)}
 .finput::placeholder,.ftarea::placeholder{color:var(--text3)}
 .ftarea{resize:vertical;min-height:70px;line-height:1.6}
-.save-row{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
-
-/* ── EDIT TAB ── */
+.save-row{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);align-items:center}
 .edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .edit-full{grid-column:span 2}
-
-/* ── NOTES TAB ── */
 .notes-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
 .note-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 12px}
 .note-meta{font-size:10px;color:var(--text3);margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
@@ -178,55 +157,68 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .note-add{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--border)}
 .note-row{display:flex;gap:8px}
 
-/* ── SUMMARY PAGE ── */
+/* LOADING OVERLAY */
+.loading-overlay{position:fixed;inset:0;background:rgba(12,15,10,0.85);z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.loading-overlay.hidden{display:none}
+.spinner{width:40px;height:40px;border:3px solid var(--bg4);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:13px;color:var(--text3)}
+
+/* CONFIG SCREEN */
+.config-screen{position:fixed;inset:0;background:var(--bg);z-index:800;display:flex;align-items:center;justify-content:center}
+.config-screen.hidden{display:none}
+.config-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:32px;width:520px;max-width:95vw}
+.config-title{font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:6px}
+.config-sub{font-size:13px;color:var(--text3);margin-bottom:24px;line-height:1.6}
+.config-step{background:var(--bg3);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:10px;border:1px solid var(--border)}
+.config-step-num{font-size:10px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.config-step-text{font-size:12px;color:var(--text2);line-height:1.6}
+.config-step-text code{background:var(--bg4);color:var(--accent);padding:1px 5px;border-radius:3px;font-size:11px}
+.url-input-wrap{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.config-btns{display:flex;gap:8px;margin-top:16px}
+
+/* SUMMARY PAGE */
 .summary-page{display:none;flex:1;overflow-y:auto;padding:24px}
 .summary-page.active{display:block}
-.sum-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:4px}
-.sum-sub{font-size:13px;color:var(--text3);margin-bottom:24px}
-.sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
-.sum-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px}
-.sum-card-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;font-weight:600}
-.sum-card-val{font-family:'DM Serif Display',serif;font-size:32px;color:var(--text);line-height:1;margin-bottom:4px}
+.sum-title{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:4px}
+.sum-sub{font-size:12px;color:var(--text3);margin-bottom:22px}
+.sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.sum-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px}
+.sum-card-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;font-weight:600}
+.sum-card-val{font-family:'DM Serif Display',serif;font-size:30px;color:var(--text);line-height:1;margin-bottom:3px}
 .sum-card-val.green{color:var(--accent)}.sum-card-val.blue{color:var(--info)}.sum-card-val.warn{color:var(--warn)}
-.sum-card-sub{font-size:11px;color:var(--text3)}
-.sum-section{margin-bottom:24px}
+.sum-card-sub{font-size:10px;color:var(--text3)}
+.sum-section{margin-bottom:22px}
 .sum-section-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
 .sum-section-title::before{content:'';display:block;width:3px;height:14px;background:var(--accent);border-radius:2px}
-.pipeline-bar{display:flex;gap:1px;height:8px;border-radius:4px;overflow:hidden;margin-bottom:16px}
-.pipeline-seg{height:100%;transition:width .5s ease}
-.funnel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.funnel-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
-.funnel-label{font-size:11px;color:var(--text2)}.funnel-count{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text)}
-.top-accounts-table{width:100%;border-collapse:collapse}
-.top-accounts-table th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);font-weight:600;padding:6px 12px;text-align:left;border-bottom:1px solid var(--border)}
-.top-accounts-table td{font-size:12px;color:var(--text);padding:9px 12px;border-bottom:1px solid rgba(140,180,80,0.06)}
-.top-accounts-table tr:hover td{background:var(--bg3)}
-.cat-chart{display:flex;flex-direction:column;gap:6px}
-.cat-row{display:flex;align-items:center;gap:10px}
-.cat-lbl{font-size:11px;color:var(--text2);width:160px;flex-shrink:0}
+.pipeline-bar{display:flex;gap:1px;height:8px;border-radius:4px;overflow:hidden;margin-bottom:14px}
+.pipeline-seg{height:100%}
+.funnel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.funnel-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
+.funnel-label{font-size:10px;color:var(--text2)}
+.funnel-count{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text)}
+.sum-hl-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+.sum-hl{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px}
+.top-table{width:100%;border-collapse:collapse}
+.top-table th{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);font-weight:600;padding:5px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.top-table td{font-size:11px;color:var(--text);padding:8px 10px;border-bottom:1px solid rgba(140,180,80,0.05)}
+.top-table tr:hover td{background:var(--bg3)}
+.cat-chart{display:flex;flex-direction:column;gap:5px}
+.cat-row{display:flex;align-items:center;gap:8px}
+.cat-lbl{font-size:10px;color:var(--text2);width:150px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cat-bar-wrap{flex:1;height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
-.cat-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .5s ease}
-.cat-count{font-size:11px;color:var(--text3);width:24px;text-align:right;flex-shrink:0}
-.sum-highlight-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
-.sum-highlight{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px}
-.recent-activity{display:flex;flex-direction:column;gap:6px}
-.activity-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(140,180,80,0.05)}
-.activity-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:4px}
-.activity-text{font-size:12px;color:var(--text2);line-height:1.5}
-.activity-time{font-size:10px;color:var(--text3);margin-top:2px}
+.cat-bar-fill{height:100%;background:var(--accent);border-radius:3px}
+.cat-count{font-size:10px;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
+.activity-feed{display:flex;flex-direction:column;gap:4px}
+.act-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid rgba(140,180,80,0.04)}
+.act-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:4px}
+.act-text{font-size:11px;color:var(--text2);line-height:1.5}
+.act-time{font-size:10px;color:var(--text3);margin-top:1px}
 
-/* ── TIER PILL ── */
-.tier-pill{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:500;display:inline-block}
-.t1{background:rgba(90,157,232,.12);color:#5a9de8}.t2{background:rgba(168,212,86,.12);color:#a8d456}.ts{background:rgba(232,160,58,.12);color:#e8a03a}
-
-/* ── EMPTY STATE ── */
-.empty{text-align:center;padding:50px 20px;color:var(--text3);font-size:13px}
-.empty-icon{font-size:28px;margin-bottom:8px;opacity:.3}
-
-/* ── MODAL ── */
+/* MODAL */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;align-items:center;justify-content:center}
 .modal-ov.show{display:flex}
-.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;width:540px;max-width:95vw;max-height:90vh;overflow-y:auto}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;width:560px;max-width:95vw;max-height:90vh;overflow-y:auto}
 .modal-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .modal-title{font-family:'DM Serif Display',serif;font-size:18px}
 .modal-close{background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1}
@@ -234,35 +226,57 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-full{grid-column:span 2}
 .modal-foot{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.section-divider{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;grid-column:span 2;padding:8px 0 2px;border-top:1px solid var(--border);margin-top:4px}
 
-/* ── CONFIRM MODAL ── */
-.confirm-box{max-width:380px;text-align:center;padding:28px}
-.confirm-icon{font-size:32px;margin-bottom:12px}
-.confirm-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:8px}
-.confirm-msg{font-size:12px;color:var(--text3);margin-bottom:20px;line-height:1.6}
-.confirm-actions{display:flex;gap:8px;justify-content:center}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:12px;padding:10px 16px;border-radius:var(--r);z-index:999;transform:translateY(50px);opacity:0;transition:all .22s;display:flex;align-items:center;gap:8px;pointer-events:none;max-width:320px}
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:12px;padding:10px 16px;border-radius:var(--r);z-index:999;transform:translateY(50px);opacity:0;transition:all .22s;display:flex;align-items:center;gap:8px;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 .toast-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.toast.err .toast-dot{background:var(--danger)}
+.toast.error-toast .toast-dot{background:var(--danger)}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+.empty{text-align:center;padding:50px 20px;color:var(--text3);font-size:13px}
+.empty-icon{font-size:28px;margin-bottom:8px;opacity:.3}
 </style>
+
+
 </head>
 <body>
+<div class="app">
 
-<!-- LOADING OVERLAY -->
-<div class="load-ov" id="load-ov">
-  <div class="load-logo">W</div>
-  <div class="load-text" id="load-msg">Connecting to Google Sheets…</div>
-  <div class="load-bar"><div class="load-bar-fill" id="load-bar-fill"></div></div>
+<!-- CONFIG SCREEN (auto-connects, no input needed) -->
+<div class="config-screen hidden" id="config-screen">
+  <div class="config-box">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:20px;color:var(--bg)">W</div>
+      <div>
+        <div class="config-title">Wolvbot CRM</div>
+        <div style="font-size:11px;color:var(--text3)">Backend connected · Google Apps Script</div>
+      </div>
+    </div>
+    <div class="config-step">
+      <div class="config-step-num">Backend URL</div>
+      <div class="config-step-text" style="word-break:break-all;color:var(--info);font-size:11px">https://script.google.com/macros/s/AKfycby-Pps8uFmbVD9JVYxNdNpu8IQvSDE3r1UoN0qeLWVQnKLMEb1Yan-iauERDQDlckOm/exec</div>
+    </div>
+    <div class="url-input-wrap">
+      <div class="config-btns">
+        <button class="btn btn-accent" onclick="document.getElementById('config-screen').classList.add('hidden');loadData()">Connect</button>
+        <button class="btn" onclick="useDemoMode()">Demo Mode (offline)</button>
+      </div>
+      <div id="config-error" style="font-size:11px;color:var(--danger);display:none;margin-top:6px"></div>
+    </div>
+  </div>
 </div>
 
-<div class="app">
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay hidden" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">Loading accounts…</div>
+</div>
 
 <!-- HEADER -->
 <header class="header">
@@ -275,99 +289,54 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   </div>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('crm',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      CRM
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>CRM
     </button>
     <button class="nav-tab" onclick="showPage('summary',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Summary
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Summary
     </button>
   </div>
-
-  <!-- SYNC STATUS -->
-  <div class="sync-area">
-    <div class="sync-pill offline" id="sync-pill">
-      <div class="sync-dot"></div>
-      <span id="sync-label">Not connected</span>
-    </div>
-    <button class="btn" id="sync-btn" onclick="manualSync()" title="Force sync with Google Sheets">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-      Sync
-    </button>
-  </div>
-
   <div class="header-right">
+    <div class="sync-indicator">
+      <div class="sync-dot" id="sync-dot"></div>
+      <span id="sync-label">Connecting…</span>
+    </div>
+    <button class="btn" onclick="refreshData()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>Refresh
+    </button>
     <button class="btn" onclick="exportCSV()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export CSV
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV
     </button>
     <button class="btn btn-accent" onclick="openAddModal()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Add Account
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Account
+    </button>
+    <button class="btn" onclick="resetConfig()" title="Change backend URL" style="padding:7px 10px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
     </button>
   </div>
 </header>
 
 <!-- BODY -->
 <div class="body-wrap">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="s-section">
       <div class="s-label">Pipeline</div>
-      <div class="s-item active" onclick="filterSide('all',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:var(--text3)"></div>All Accounts</div>
-        <span class="s-cnt" id="c-all">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('Approach now',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#4acf82"></div>Approach Now</div>
-        <span class="s-cnt" id="c-approach">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('Shortlist',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#5a9de8"></div>Shortlist</div>
-        <span class="s-cnt" id="c-shortlist">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('Validate',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#e8a03a"></div>Validate</div>
-        <span class="s-cnt" id="c-validate">0</span>
-      </div>
+      <div class="s-item active" onclick="filterSide('all',this)"><div class="s-item-l"><div class="s-dot" style="background:var(--text3)"></div>All Accounts</div><span class="s-cnt" id="c-all">—</span></div>
+      <div class="s-item" onclick="filterSide('Approach now',this)"><div class="s-item-l"><div class="s-dot" style="background:#4acf82"></div>Approach Now</div><span class="s-cnt" id="c-approach">—</span></div>
+      <div class="s-item" onclick="filterSide('Shortlist',this)"><div class="s-item-l"><div class="s-dot" style="background:#5a9de8"></div>Shortlist</div><span class="s-cnt" id="c-shortlist">—</span></div>
+      <div class="s-item" onclick="filterSide('Validate',this)"><div class="s-item-l"><div class="s-dot" style="background:#e8a03a"></div>Validate</div><span class="s-cnt" id="c-validate">—</span></div>
     </div>
     <div class="s-section">
       <div class="s-label">Status</div>
-      <div class="s-item" onclick="filterSide('status:Not Started',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:var(--text3)"></div>Not Started</div>
-        <span class="s-cnt" id="c-ns">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('status:Researching',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#e8a03a"></div>Researching</div>
-        <span class="s-cnt" id="c-res">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('status:Email Sent',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#5a9de8"></div>Email Sent</div>
-        <span class="s-cnt" id="c-em">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('status:Meeting Booked',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#a8d456"></div>Meeting Booked</div>
-        <span class="s-cnt" id="c-mb">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('status:In Discussion',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#a8d456"></div>In Discussion</div>
-        <span class="s-cnt" id="c-id">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('status:Partner Confirmed',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#4acf82"></div>Confirmed</div>
-        <span class="s-cnt" id="c-co">0</span>
-      </div>
-      <div class="s-item" onclick="filterSide('status:On Hold',this)">
-        <div class="s-item-l"><div class="s-dot" style="background:#e8614a"></div>On Hold</div>
-        <span class="s-cnt" id="c-oh">0</span>
-      </div>
+      <div class="s-item" onclick="filterSide('status:Not Started',this)"><div class="s-item-l"><div class="s-dot" style="background:var(--text3)"></div>Not Started</div><span class="s-cnt" id="c-ns">—</span></div>
+      <div class="s-item" onclick="filterSide('status:Researching',this)"><div class="s-item-l"><div class="s-dot" style="background:#e8a03a"></div>Researching</div><span class="s-cnt" id="c-res">—</span></div>
+      <div class="s-item" onclick="filterSide('status:Email Sent',this)"><div class="s-item-l"><div class="s-dot" style="background:#5a9de8"></div>Email Sent</div><span class="s-cnt" id="c-em">—</span></div>
+      <div class="s-item" onclick="filterSide('status:Meeting Booked',this)"><div class="s-item-l"><div class="s-dot" style="background:#a8d456"></div>Meeting Booked</div><span class="s-cnt" id="c-mb">—</span></div>
+      <div class="s-item" onclick="filterSide('status:In Discussion',this)"><div class="s-item-l"><div class="s-dot" style="background:#a8d456"></div>In Discussion</div><span class="s-cnt" id="c-id">—</span></div>
+      <div class="s-item" onclick="filterSide('status:Partner Confirmed',this)"><div class="s-item-l"><div class="s-dot" style="background:#4acf82"></div>Confirmed</div><span class="s-cnt" id="c-co">—</span></div>
+      <div class="s-item" onclick="filterSide('status:On Hold',this)"><div class="s-item-l"><div class="s-dot" style="background:#e8614a"></div>On Hold</div><span class="s-cnt" id="c-oh">—</span></div>
     </div>
     <div class="prog-block">
-      <div class="prog-head">
-        <div class="prog-num" id="prog-n">0</div>
-        <div class="prog-lbl">of <span id="prog-total">0</span> contacted</div>
-      </div>
+      <div class="prog-head"><div class="prog-num" id="prog-n">0</div><div class="prog-lbl">of <span id="prog-total">0</span> contacted</div></div>
       <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
     </div>
   </aside>
@@ -375,11 +344,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <!-- CRM PAGE -->
   <div class="content" id="page-crm">
     <div class="stats-bar">
-      <div class="stat-cell"><div class="stat-lbl">Accounts</div><div class="stat-val" id="st-total">0</div><div class="stat-sub">Bangalore targets</div></div>
-      <div class="stat-cell"><div class="stat-lbl">Avg Score</div><div class="stat-val" id="st-score">—<span>/100</span></div><div class="stat-sub">Weighted fit</div></div>
-      <div class="stat-cell"><div class="stat-lbl">Peak Demand</div><div class="stat-val" id="st-demand">—<span>/day</span></div><div class="stat-sub">High estimate</div></div>
-      <div class="stat-cell"><div class="stat-lbl">Contacted</div><div class="stat-val" id="st-contacted">0</div><div class="stat-sub">Active outreach</div></div>
-      <div class="stat-cell"><div class="stat-lbl">Confirmed</div><div class="stat-val" id="st-confirmed" style="color:var(--accent)">0</div><div class="stat-sub">Design partners</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Accounts</div><div class="stat-val" id="st-total">—</div><div class="stat-sub">Bangalore targets</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Avg Score</div><div class="stat-val" id="st-score">—</div><div class="stat-sub">Weighted fit</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Peak Demand</div><div class="stat-val" id="st-demand">—</div><div class="stat-sub">High estimate /day</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Contacted</div><div class="stat-val" id="st-contacted">—</div><div class="stat-sub">Active outreach</div></div>
+      <div class="stat-cell"><div class="stat-lbl">Confirmed</div><div class="stat-val" id="st-confirmed" style="color:var(--accent)">—</div><div class="stat-sub">Design partners</div></div>
     </div>
     <div class="toolbar">
       <div class="search-wrap">
@@ -389,7 +358,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <select class="sel" id="tier-f" onchange="renderAccounts()">
         <option value="">All Tiers</option><option>Tier 1</option><option>Tier 2</option><option>Strategic</option>
       </select>
-      <select class="sel" id="cat-f" onchange="renderAccounts()"></select>
+      <select class="sel" id="cat-f" onchange="renderAccounts()">
+        <option value="">All Categories</option>
+      </select>
       <select class="sel" id="sort-f" onchange="renderAccounts()">
         <option value="score">Sort: Score ↓</option>
         <option value="name">Sort: Name A–Z</option>
@@ -403,52 +374,33 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <!-- SUMMARY PAGE -->
   <div class="summary-page" id="page-summary">
     <div class="sum-title">GTM Summary</div>
-    <div class="sum-sub">Wolvbot Bangalore ASRS VMI Pilot · <span id="sum-date"></span></div>
+    <div class="sum-sub" id="sum-sub">Wolvbot Bangalore ASRS VMI Pilot</div>
     <div class="sum-grid" id="sum-kpis"></div>
     <div class="sum-section">
-      <div class="sum-section-title">Pipeline Breakdown</div>
-      <div class="pipeline-bar" id="sum-pipelinebar"></div>
+      <div class="sum-section-title">Pipeline by Status</div>
+      <div class="pipeline-bar" id="sum-pbar"></div>
       <div class="funnel-grid" id="sum-funnel"></div>
     </div>
-    <div class="sum-highlight-row">
-      <div class="sum-highlight">
-        <div class="sum-section-title">Top Accounts by Fit Score</div>
-        <table class="top-accounts-table" id="sum-top-table">
-          <thead><tr><th>#</th><th>Account</th><th>Action</th><th>Status</th><th>Score</th></tr></thead>
-          <tbody id="sum-top-body"></tbody>
-        </table>
-      </div>
-      <div class="sum-highlight">
-        <div class="sum-section-title">Accounts by Category</div>
-        <div class="cat-chart" id="sum-cat-chart"></div>
-      </div>
+    <div class="sum-hl-row">
+      <div class="sum-hl"><div class="sum-section-title">Top Accounts by Score</div><table class="top-table"><thead><tr><th>#</th><th>Account</th><th>Action</th><th>Status</th><th>Score</th></tr></thead><tbody id="sum-top"></tbody></table></div>
+      <div class="sum-hl"><div class="sum-section-title">By Category</div><div class="cat-chart" id="sum-cat"></div></div>
     </div>
     <div class="sum-section">
       <div class="sum-section-title">Demand Opportunity (High Estimate / Day)</div>
-      <div id="sum-demand-bars" class="cat-chart"></div>
+      <div class="cat-chart" id="sum-demand"></div>
     </div>
-    <div class="sum-highlight-row">
-      <div class="sum-highlight">
-        <div class="sum-section-title">Recent Notes / Activity</div>
-        <div class="recent-activity" id="sum-activity"></div>
-      </div>
-      <div class="sum-highlight">
-        <div class="sum-section-title">Outreach by Tier</div>
-        <div id="sum-tier-chart" class="cat-chart"></div>
-      </div>
+    <div class="sum-hl-row">
+      <div class="sum-hl"><div class="sum-section-title">Recent Activity</div><div class="activity-feed" id="sum-activity"></div></div>
+      <div class="sum-hl"><div class="sum-section-title">Outreach by Tier</div><div class="cat-chart" id="sum-tier"></div></div>
     </div>
   </div>
-
-</div><!-- body-wrap -->
-</div><!-- app -->
+</div>
+</div>
 
 <!-- ADD MODAL -->
 <div class="modal-ov" id="add-modal">
   <div class="modal-box">
-    <div class="modal-hd">
-      <div class="modal-title">Add New Account</div>
-      <button class="modal-close" onclick="closeAddModal()">✕</button>
-    </div>
+    <div class="modal-hd"><div class="modal-title">Add New Account</div><button class="modal-close" onclick="closeAddModal()">✕</button></div>
     <div class="modal-grid">
       <div class="field-g modal-full"><div class="field-l">Account Name *</div><input class="finput" id="m-name" placeholder="e.g. MamaEarth"></div>
       <div class="field-g"><div class="field-l">Parent Company</div><input class="finput" id="m-parent" placeholder="e.g. Honasa Consumer"></div>
@@ -461,6 +413,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <div class="field-g modal-full"><div class="field-l">Platforms (comma separated)</div><input class="finput" id="m-platforms" placeholder="Blinkit, Zepto, Amazon, D2C"></div>
       <div class="field-g modal-full"><div class="field-l">Pitch Angle</div><textarea class="ftarea" id="m-pitch" placeholder="Describe the VMI pilot pitch…"></textarea></div>
       <div class="field-g modal-full"><div class="field-l">Fulfilment Signal</div><input class="finput" id="m-fulfil" placeholder="e.g. Zippee signal, WareIQ visible"></div>
+      <div class="section-divider">Contact Details</div>
       <div class="field-g"><div class="field-l">Contact Name</div><input class="finput" id="m-cname" placeholder="e.g. Rahul Sharma"></div>
       <div class="field-g"><div class="field-l">Designation</div><input class="finput" id="m-cdesig" placeholder="e.g. Head of Supply Chain"></div>
       <div class="field-g"><div class="field-l">Email</div><input class="finput" id="m-cemail" type="email" placeholder="rahul@brand.com"></div>
@@ -468,302 +421,309 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <div class="field-g modal-full"><div class="field-l">LinkedIn / Route</div><input class="finput" id="m-clinkedin" placeholder="linkedin.com/in/… or approach route"></div>
     </div>
     <div class="modal-foot">
-      <button class="btn btn-accent" onclick="addAccount()">Add Account</button>
+      <button class="btn btn-accent" id="add-btn" onclick="addAccount()">Add Account</button>
       <button class="btn" onclick="closeAddModal()">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- CONFIRM MODAL -->
-<div class="modal-ov" id="confirm-modal">
-  <div class="modal-box confirm-box">
-    <div class="confirm-icon">⚠️</div>
-    <div class="confirm-title" id="confirm-title">Confirm Action</div>
-    <div class="confirm-msg" id="confirm-msg">Are you sure?</div>
-    <div class="confirm-actions">
-      <button class="btn btn-danger" id="confirm-ok">Confirm</button>
-      <button class="btn" onclick="closeConfirm()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg">Saved</span></div>
 
+
+
 <script>
-// ══════════════════════════════════════════════════════════════════════
-//  BACKEND CONFIG
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════
+//  WOLVBOT CRM — Google Apps Script Backend
+//  API: https://script.google.com/macros/s/AKfycby-Pps8uFmbVD9JVYxNdNpu8IQvSDE3r1UoN0qeLWVQnKLMEb1Yan-iauERDQDlckOm/exec
+// ══════════════════════════════════════════════════════════════════
+
 const API_URL = 'https://script.google.com/macros/s/AKfycby-Pps8uFmbVD9JVYxNdNpu8IQvSDE3r1UoN0qeLWVQnKLMEb1Yan-iauERDQDlckOm/exec';
-const SAVE_DEBOUNCE_MS = 1800; // wait before auto-saving
 
-// ══════════════════════════════════════════════════════════════════════
-//  CONSTANTS
-// ══════════════════════════════════════════════════════════════════════
-const CATEGORIES = [
-  "Beauty / Personal Care","Beauty / Cosmetics","Premium Beauty / Ayurveda",
-  "Nutrition / Supplements","Wellness / Supplements","Health / Wellness Marketplace",
-  "Dermatology / Wellness","Kids Snacks / FMCG","Packaged Food / Snacks",
-  "Food / Staples / Wellness","F&B / Dairy","Beverages",
-  "Pet Care","Electronics Accessories","Comfort / Health Products",
-  "Jewellery / Accessories","Eyewear","Other"
-];
+const CATEGORIES = ["Beauty / Personal Care","Beauty / Cosmetics","Premium Beauty / Ayurveda","Nutrition / Supplements","Wellness / Supplements","Health / Wellness Marketplace","Dermatology / Wellness","Kids Snacks / FMCG","Packaged Food / Snacks","Food / Staples / Wellness","F&B / Dairy","Beverages","Pet Care","Electronics Accessories","Comfort / Health Products","Jewellery / Accessories","Eyewear","Other"];
 const STATUSES = ["Not Started","Researching","Email Sent","Meeting Booked","In Discussion","Partner Confirmed","On Hold"];
+const S_COLORS = {"Not Started":"var(--bg4)","Researching":"#e8a03a","Email Sent":"#5a9de8","Meeting Booked":"#a8d456","In Discussion":"#7bb82e","Partner Confirmed":"#4acf82","On Hold":"#e8614a"};
 
-// ══════════════════════════════════════════════════════════════════════
-//  DEFAULT DATA (used if sheet is empty or offline)
-// ══════════════════════════════════════════════════════════════════════
-const DEFAULT_ACCOUNTS = [
-  {id:1,name:"HealthKart / MuscleBlaze",parent:"HealthKart",category:"Nutrition / Supplements",tier:"Tier 1",action:"Approach now",score:97,qc:5,sku:5,density:5,pilot:4,access:5,logo:5,demandLow:300,demandHigh:1000,confidence:"Medium",platforms:["Blinkit","Zepto","Instamart","Amazon","Flipkart","D2C"],pitch:"Compact supplement VMI node for Bangalore demand clusters.",fulfil:"Zippee + q-commerce signal",status:"Not Started",contact:{name:"",designation:"Head of Supply Chain / Q-Commerce",email:"",phone:"",linkedin:"",route:"Approach ops / supply chain / q-commerce head"},notes:[]},
-  {id:2,name:"Mamaearth / Honasa",parent:"Honasa Consumer",category:"Beauty / Personal Care",tier:"Tier 1",action:"Approach now",score:97,qc:5,sku:5,density:5,pilot:4,access:5,logo:5,demandLow:250,demandHigh:900,confidence:"Medium",platforms:["Blinkit","Zepto","Instamart","Nykaa","Amazon","Flipkart","D2C"],pitch:"Beauty SKU micro-fulfilment with lower area and faster pick accuracy.",fulfil:"Q-commerce growth signal",status:"Not Started",contact:{name:"",designation:"Supply Chain / Q-Commerce / Marketplace",email:"",phone:"",linkedin:"",route:"Approach supply chain / q-commerce / marketplace team"},notes:[]},
-  {id:3,name:"Supertails",parent:"Supertails",category:"Pet Care",tier:"Tier 1",action:"Approach now",score:80,qc:4,sku:4,density:4,pilot:4,access:4,logo:4,demandLow:100,demandHigh:400,confidence:"Medium",platforms:["Own site","Blinkit","Zepto","Instamart","Amazon"],pitch:"Pet-care VMI node for fast-moving SKUs with safety stock buffer.",fulfil:"Zippee signal",status:"Not Started",contact:{name:"",designation:"Founder / Ops / Fulfilment Head",email:"",phone:"",linkedin:"",route:"Approach founder / ops / fulfilment head"},notes:[]},
-  {id:4,name:"Lil'Goodness",parent:"Lil'Goodness",category:"Kids Snacks / FMCG",tier:"Tier 1",action:"Approach now",score:84,qc:4,sku:5,density:4,pilot:4,access:4,logo:4,demandLow:75,demandHigh:300,confidence:"Low-Medium",platforms:["Blinkit","Zepto","Instamart","Amazon","D2C"],pitch:"Small-pack FMCG VMI node for q-commerce stock availability.",fulfil:"WareIQ case-study signal",status:"Not Started",contact:{name:"",designation:"Founder / Ops",email:"",phone:"",linkedin:"",route:"Approach founder / ops"},notes:[]},
-  {id:5,name:"boAt accessories",parent:"Imagine Marketing",category:"Electronics Accessories",tier:"Tier 1",action:"Approach now",score:83,qc:4,sku:5,density:4,pilot:3,access:4,logo:5,demandLow:100,demandHigh:500,confidence:"Low",platforms:["Blinkit","Zepto","Instamart","Amazon","Flipkart"],pitch:"Compact high-value accessory storage for same-day fulfilment.",fulfil:"Pikndel / q-commerce — verify",status:"Not Started",contact:{name:"",designation:"Marketplace / Supply Chain",email:"",phone:"",linkedin:"",route:"Approach marketplace / supply chain team"},notes:[]},
-  {id:6,name:"Hyuga Life / Pratech",parent:"Pratech Brands",category:"Health / Wellness Marketplace",tier:"Tier 1",action:"Approach now",score:81,qc:4,sku:5,density:4,pilot:3,access:4,logo:4,demandLow:100,demandHigh:500,confidence:"Low",platforms:["Own site","Amazon","Flipkart","Q-commerce"],pitch:"Marketplace demand layer: consolidate health/wellness SKUs in automated node.",fulfil:"WareIQ/marketplace — verify",status:"Not Started",contact:{name:"",designation:"Marketplace Ops",email:"",phone:"",linkedin:"",route:"Approach marketplace ops"},notes:[]},
-  {id:7,name:"Purplle",parent:"Purplle",category:"Beauty / Personal Care",tier:"Strategic",action:"Approach now",score:81,qc:4,sku:5,density:5,pilot:2,access:3,logo:5,demandLow:500,demandHigh:1500,confidence:"Low",platforms:["Purplle marketplace","Brand sellers","App"],pitch:"Automated VMI node for Purplle seller ecosystem / fast-moving beauty SKUs.",fulfil:"Pikndel / marketplace — verify",status:"Not Started",contact:{name:"",designation:"Partnership / Ops",email:"",phone:"",linkedin:"",route:"Approach partnership / ops — expect longer cycle"},notes:[]},
-  {id:8,name:"Haldiram's",parent:"Haldiram's",category:"Packaged Food / Snacks",tier:"Strategic",action:"Approach now",score:80,qc:5,sku:4,density:5,pilot:2,access:2,logo:5,demandLow:300,demandHigh:1200,confidence:"Low",platforms:["Blinkit","Zepto","Instamart","BB Now","Amazon"],pitch:"Regional distributor/VMI pilot for fast-moving snack SKUs in Bangalore.",fulfil:"Zippee ET signal",status:"Not Started",contact:{name:"",designation:"Regional Distributor / Modern Trade",email:"",phone:"",linkedin:"",route:"Approach via regional distributor / modern trade channel"},notes:[]},
-  {id:9,name:"Setu Nutrition",parent:"Setu / Marico-linked wellness",category:"Wellness / Supplements",tier:"Tier 1",action:"Shortlist",score:77,qc:4,sku:5,density:3,pilot:3,access:4,logo:4,demandLow:50,demandHigh:250,confidence:"Low-Medium",platforms:["Amazon","Flipkart","Blinkit","Zepto","D2C"],pitch:"Supplement VMI sizing with compact storage and replenishment visibility.",fulfil:"WareIQ signal",status:"Not Started",contact:{name:"",designation:"Ecommerce Ops / Supply Chain",email:"",phone:"",linkedin:"",route:"Approach ecommerce ops / supply chain"},notes:[]},
-  {id:10,name:"The Face Shop",parent:"LG H&H / India distributor",category:"Beauty / Cosmetics",tier:"Tier 1",action:"Shortlist",score:77,qc:4,sku:5,density:3,pilot:3,access:4,logo:4,demandLow:50,demandHigh:200,confidence:"Low-Medium",platforms:["Nykaa","Amazon","Blinkit","Zepto","Instamart","D2C"],pitch:"Premium beauty VMI: high SKU variety in compact automated node.",fulfil:"Zippee signal",status:"Not Started",contact:{name:"",designation:"Ecommerce / Brand Manager",email:"",phone:"",linkedin:"",route:"Approach ecommerce / brand manager"},notes:[]},
-  {id:11,name:"Lotus Herbals",parent:"Lotus Herbals",category:"Beauty / Personal Care",tier:"Tier 2",action:"Shortlist",score:79,qc:4,sku:5,density:4,pilot:3,access:3,logo:4,demandLow:100,demandHigh:400,confidence:"Low-Medium",platforms:["Blinkit","Zepto","Instamart","Nykaa","Amazon","Flipkart"],pitch:"Reduce storage area and improve pick accuracy for high-SKU beauty inventory.",fulfil:"WareIQ signal",status:"Not Started",contact:{name:"",designation:"Supply Chain / Ecommerce Ops",email:"",phone:"",linkedin:"",route:"Approach supply chain / ecommerce ops"},notes:[]},
-  {id:12,name:"Heads Up For Tails",parent:"Heads Up For Tails",category:"Pet Care",tier:"Tier 2",action:"Shortlist",score:71,qc:4,sku:3,density:4,pilot:3,access:3,logo:4,demandLow:80,demandHigh:350,confidence:"Low-Medium",platforms:["Own site","Own stores","Q-commerce"],pitch:"Fast-moving pet accessories/essentials node, excluding bulky bags initially.",fulfil:"Zippee ET signal",status:"Not Started",contact:{name:"",designation:"Ops / Ecommerce",email:"",phone:"",linkedin:"",route:"Approach ops / ecommerce"},notes:[]},
-  {id:13,name:"Clinikally",parent:"Clinikally",category:"Dermatology / Wellness",tier:"Tier 2",action:"Shortlist",score:73,qc:3,sku:5,density:3,pilot:4,access:4,logo:3,demandLow:30,demandHigh:180,confidence:"Low",platforms:["Own site","Amazon","Selected q-commerce"],pitch:"Dermatology SKU node with replenishment and controlled storage process.",fulfil:"Zippee/rapid — verify",status:"Not Started",contact:{name:"",designation:"Ops / Fulfilment",email:"",phone:"",linkedin:"",route:"Approach ops / fulfilment"},notes:[]},
-  {id:14,name:"Epigamia",parent:"Drums Food",category:"F&B / Dairy",tier:"Tier 2",action:"Shortlist",score:73,qc:5,sku:2,density:5,pilot:3,access:2,logo:4,demandLow:150,demandHigh:700,confidence:"Low-Medium",platforms:["Blinkit","Zepto","Instamart","BB Now","Own"],pitch:"Later-stage cold-chain/ambient selected SKU VMI; not first prototype.",fulfil:"Zippee ET signal",status:"Not Started",contact:{name:"",designation:"Ops / Q-Commerce",email:"",phone:"",linkedin:"",route:"Approach after prototype category fit is clear"},notes:[]},
-  {id:15,name:"Kama Ayurveda",parent:"Kama Ayurveda",category:"Premium Beauty / Ayurveda",tier:"Tier 2",action:"Validate",score:65,qc:3,sku:5,density:2,pilot:3,access:3,logo:4,demandLow:30,demandHigh:150,confidence:"Low",platforms:["Nykaa","Amazon","D2C","Selected q-commerce"],pitch:"Premium SKU handling and city-level micro-inventory visibility.",fulfil:"WareIQ case-study signal",status:"Not Started",contact:{name:"",designation:"Ecommerce / Customer Experience Ops",email:"",phone:"",linkedin:"",route:"Approach ecommerce / customer experience ops"},notes:[]},
-  {id:16,name:"Frido",parent:"Arcatron Mobility / Frido",category:"Comfort / Health Products",tier:"Tier 2",action:"Validate",score:63,qc:3,sku:3,density:3,pilot:4,access:3,logo:3,demandLow:40,demandHigh:200,confidence:"Low",platforms:["Own site","Amazon","Flipkart","Selected q-commerce"],pitch:"Selective SKU pilot: compact fast-moving SKUs only, not full catalogue.",fulfil:"Zippee signal",status:"Not Started",contact:{name:"",designation:"Ops / Founder",email:"",phone:"",linkedin:"",route:"Approach ops / founder"},notes:[]},
-  {id:17,name:"Anveshan",parent:"Anveshan",category:"Food / Staples / Wellness",tier:"Tier 2",action:"Validate",score:63,qc:3,sku:3,density:3,pilot:4,access:3,logo:3,demandLow:40,demandHigh:250,confidence:"Low",platforms:["Own site","Amazon","Blinkit/Zepto — check"],pitch:"Fast-moving ambient health-food VMI for selected SKUs.",fulfil:"Zippee ecosystem signal",status:"Not Started",contact:{name:"",designation:"Founder / Ops",email:"",phone:"",linkedin:"",route:"Approach founder / ops"},notes:[]},
-  {id:18,name:"UTH Beverages",parent:"UTH Beverages",category:"Beverages",tier:"Tier 2",action:"Validate",score:65,qc:4,sku:2,density:4,pilot:3,access:3,logo:3,demandLow:100,demandHigh:500,confidence:"Low",platforms:["Blinkit","Zepto","Instamart","BB Now","Amazon"],pitch:"Use for pallet/VMI model; selected small packs for ASRS only.",fulfil:"WareIQ signal",status:"Not Started",contact:{name:"",designation:"Supply Chain / Ops",email:"",phone:"",linkedin:"",route:"Approach if pallet VMI is included"},notes:[]},
-  {id:19,name:"GIVA",parent:"GIVA",category:"Jewellery / Accessories",tier:"Tier 2",action:"Validate",score:61,qc:2,sku:5,density:2,pilot:4,access:3,logo:3,demandLow:20,demandHigh:120,confidence:"Low",platforms:["Own site","Own stores","Marketplaces"],pitch:"High-value compact inventory with controlled automated storage.",fulfil:"Zippee ET signal",status:"Not Started",contact:{name:"",designation:"Ops / Ecommerce",email:"",phone:"",linkedin:"",route:"Approach later for high-value storage use case"},notes:[]},
-  {id:20,name:"Lenskart",parent:"Lenskart",category:"Eyewear",tier:"Strategic",action:"Validate",score:61,qc:3,sku:4,density:3,pilot:2,access:2,logo:5,demandLow:50,demandHigh:300,confidence:"Low",platforms:["Own stores","Own site","Selected q-commerce"],pitch:"Selected accessories/lens-care VMI, not core prescription workflow.",fulfil:"Zippee/Pikndel ecosystem signal",status:"Not Started",contact:{name:"",designation:"Supply Chain / Tech Ops",email:"",phone:"",linkedin:"",route:"Approach with stronger prototype evidence"},notes:[]},
-];
-
-// ══════════════════════════════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════════════════════════════
 let accounts = [];
-let nextId = 21;
 let curFilter = 'all';
 let openRows = {};
 let activeTabs = {};
-let saveTimer = null;
-let isOnline = false;
-let lastSavedAt = null;
+let DEMO_MODE = false;
 
-// ══════════════════════════════════════════════════════════════════════
-//  BACKEND — LOAD FROM GOOGLE SHEETS
-// ══════════════════════════════════════════════════════════════════════
-async function loadFromSheet() {
-  setLoadMsg('Connecting to Google Sheets…', 20);
-  try {
-    const url = API_URL + '?action=getAccounts&t=' + Date.now();
-    const res = await fetch(url, {redirect: 'follow'});
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    setLoadMsg('Parsing data…', 60);
-    const text = await res.text();
-    let data;
-    try { data = JSON.parse(text); } catch(e) { throw new Error('Invalid JSON from sheet'); }
-    if (data && Array.isArray(data.accounts) && data.accounts.length > 0) {
-      accounts = data.accounts;
-      nextId = Math.max(...accounts.map(a => a.id || 0), nextId) + 1;
-      isOnline = true;
-      setLoadMsg('Loaded ' + accounts.length + ' accounts ✓', 100);
-      setSyncStatus('saved', 'Synced with Sheets');
-      toast('Loaded ' + accounts.length + ' accounts from Google Sheets ✓');
-    } else {
-      // Sheet is empty or returns no accounts — use defaults and push them up
-      accounts = JSON.parse(JSON.stringify(DEFAULT_ACCOUNTS));
-      isOnline = true;
-      setLoadMsg('Sheet empty — loading defaults…', 80);
-      setSyncStatus('pending', 'First-time setup…');
-      triggerSave(); // push defaults to sheet
-      setLoadMsg('Ready', 100);
-    }
-  } catch (err) {
-    console.warn('Sheet load failed:', err.message);
-    accounts = JSON.parse(JSON.stringify(DEFAULT_ACCOUNTS));
-    isOnline = false;
-    setLoadMsg('Offline — using local data', 100);
-    setSyncStatus('offline', 'Working offline');
-    toast('Could not reach Google Sheets — working offline', true);
-  }
-  setTimeout(hideLoader, 500);
-  populateCatDropdowns();
-  renderAccounts();
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  BACKEND — SAVE TO GOOGLE SHEETS
-// ══════════════════════════════════════════════════════════════════════
-function triggerSave() {
-  clearTimeout(saveTimer);
-  setSyncStatus('pending', 'Unsaved changes…');
-  saveTimer = setTimeout(saveToSheet, SAVE_DEBOUNCE_MS);
-}
-
-async function saveToSheet() {
-  if (!isOnline) { setSyncStatus('offline', 'Offline — not saved'); return; }
-  setSyncStatus('saving', 'Saving to Sheets…');
-  try {
-    // Google Apps Script requires no-cors or a CORS-enabled deployment.
-    // We send a POST with the full accounts payload.
-    await fetch(API_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'saveAccounts', data: accounts })
-    });
-    // With no-cors we can't read the response — assume success
-    lastSavedAt = new Date();
-    const t = lastSavedAt.toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
-    setSyncStatus('saved', 'Saved at ' + t);
-  } catch (err) {
-    console.warn('Save failed:', err.message);
-    setSyncStatus('error', 'Save failed — retry');
-    toast('Save to Sheets failed. Check connection.', true);
-  }
-}
-
-async function manualSync() {
-  const btn = document.getElementById('sync-btn');
-  btn.disabled = true;
-  setSyncStatus('loading', 'Syncing…');
-  try {
-    const url = API_URL + '?action=getAccounts&t=' + Date.now();
-    const res = await fetch(url, {redirect: 'follow'});
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (data && Array.isArray(data.accounts) && data.accounts.length > 0) {
-      accounts = data.accounts;
-      nextId = Math.max(...accounts.map(a => a.id || 0), nextId) + 1;
-      isOnline = true;
-      renderAccounts();
-      const t = new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
-      setSyncStatus('saved', 'Synced at ' + t);
-      toast('Synced ' + accounts.length + ' accounts ✓');
-    } else {
-      isOnline = true;
-      setSyncStatus('saved', 'Sheet in sync');
-      toast('Sheet is up to date ✓');
-    }
-  } catch (err) {
-    isOnline = false;
-    setSyncStatus('offline', 'Offline');
-    toast('Sync failed — check connection', true);
-  }
-  btn.disabled = false;
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  SYNC STATUS UI
-// ══════════════════════════════════════════════════════════════════════
-function setSyncStatus(state, label) {
-  const pill = document.getElementById('sync-pill');
-  const lbl = document.getElementById('sync-label');
-  pill.className = 'sync-pill ' + state;
-  lbl.textContent = label;
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  LOADER
-// ══════════════════════════════════════════════════════════════════════
-function setLoadMsg(msg, pct) {
-  document.getElementById('load-msg').textContent = msg;
-  document.getElementById('load-bar-fill').style.width = pct + '%';
-}
-function hideLoader() {
-  document.getElementById('load-ov').classList.add('hidden');
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  HELPERS
-// ══════════════════════════════════════════════════════════════════════
-const AVP = [
-  {bg:"#1a2e1a",fg:"#4acf82"},{bg:"#1a2028",fg:"#5a9de8"},{bg:"#2a1e12",fg:"#e8a03a"},
-  {bg:"#281420",fg:"#e87a9e"},{bg:"#1e1a2e",fg:"#a89de8"},{bg:"#1e2a1a",fg:"#a8d456"},
-  {bg:"#2a1a14",fg:"#e87a5a"},{bg:"#14202a",fg:"#5ab8e8"},
-];
+// ── HELPERS ───────────────────────────────────────────────────────
+const AVP=[{bg:"#1a2e1a",fg:"#4acf82"},{bg:"#1a2028",fg:"#5a9de8"},{bg:"#2a1e12",fg:"#e8a03a"},{bg:"#281420",fg:"#e87a9e"},{bg:"#1e1a2e",fg:"#a89de8"},{bg:"#1e2a1a",fg:"#a8d456"},{bg:"#2a1a14",fg:"#e87a5a"},{bg:"#14202a",fg:"#5ab8e8"}];
 function av(i){return AVP[i%AVP.length]}
 function ini(name){const p=name.split(/[\s\/\-]/);return(p[0][0]+(p[1]?p[1][0]:p[0][1]||'')).toUpperCase()}
 function sc(s){return s>=80?'sc-hi':s>=65?'sc-mi':'sc-lo'}
-function badgeCls(a){return a==="Approach now"?"b-approach":a==="Shortlist"?"b-shortlist":"b-validate"}
+function bCls(a){return a==="Approach now"?"b-approach":a==="Shortlist"?"b-shortlist":"b-validate"}
 function sCls(s){const m={"Not Started":"s-ns","Researching":"s-re","Email Sent":"s-em","Meeting Booked":"s-mb","In Discussion":"s-id","Partner Confirmed":"s-co","On Hold":"s-oh"};return m[s]||"s-ns"}
-function tcls(t){return t==="Tier 1"?"t1":t==="Tier 2"?"t2":"ts"}
-function scCircle(v){return`sc${v}`}
+function tCls(t){return t==="Tier 1"?"t1":t==="Tier 2"?"t2":"ts"}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
-// ══════════════════════════════════════════════════════════════════════
-//  POPULATE DROPDOWNS
-// ══════════════════════════════════════════════════════════════════════
-function populateCatDropdowns(){
-  const opts = CATEGORIES.map(c=>`<option>${c}</option>`).join('');
-  document.getElementById('cat-f').innerHTML = '<option value="">All Categories</option>' + opts;
-  document.getElementById('m-cat').innerHTML = opts;
+function setSyncStatus(state, label){
+  const dot=document.getElementById('sync-dot');
+  const lbl=document.getElementById('sync-label');
+  if(dot) dot.className='sync-dot '+state;
+  if(lbl) lbl.textContent=label;
+}
+function showLoading(txt='Loading…'){
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('loading-text').textContent=txt;
+}
+function hideLoading(){document.getElementById('loading').classList.add('hidden')}
+
+// ── API CALLS ─────────────────────────────────────────────────────
+async function apiFetch(params){
+  const url = API_URL + '?' + new URLSearchParams(params);
+  const r = await fetch(url);
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  PAGE SWITCHING
-// ══════════════════════════════════════════════════════════════════════
-function showPage(page, btn){
-  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('page-crm').style.display = page==='crm' ? 'flex' : 'none';
-  document.getElementById('page-summary').classList.toggle('active', page==='summary');
-  if(page==='summary') renderSummary();
+async function apiPost(body){
+  const r = await fetch(API_URL, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  FILTER
-// ══════════════════════════════════════════════════════════════════════
-function filterSide(f, el){
-  curFilter = f;
-  document.querySelectorAll('.s-item').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');
-  renderAccounts();
+// ── LOAD DATA ─────────────────────────────────────────────────────
+async function loadData(){
+  showLoading('Fetching accounts from Google Sheets…');
+  setSyncStatus('syncing','Syncing…');
+  try {
+    const data = await apiFetch({action:'getAll'});
+    if(data.error) throw new Error(data.error);
+    accounts = (data.accounts || []).map(a => ({
+      ...a,
+      platforms: Array.isArray(a.platforms) ? a.platforms : (String(a.platforms||'').split('|').map(s=>s.trim()).filter(Boolean)),
+      score: Number(a.score)||0,
+      qc:Number(a.qc)||3, sku:Number(a.sku)||3, density:Number(a.density)||3,
+      pilot:Number(a.pilot)||3, access:Number(a.access)||3, logo:Number(a.logo)||3,
+      demandLow:Number(a.demandLow)||0, demandHigh:Number(a.demandHigh)||0,
+      notes: Array.isArray(a.notes) ? a.notes : [],
+      contact: a.contact || {}
+    }));
+    setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
+    populateCatFilter();
+    renderAccounts();
+  } catch(e) {
+    setSyncStatus('error','Sync failed');
+    toast('Could not reach backend: '+e.message+' — switching to demo mode', true);
+    accounts = getDemoAccounts();
+    DEMO_MODE = true;
+    populateCatFilter();
+    renderAccounts();
+  } finally {
+    hideLoading();
+  }
+}
+
+async function refreshData(){
+  if(DEMO_MODE){ toast('Demo mode — no live backend'); return; }
+  await loadData();
+}
+
+function useDemoMode(){
+  DEMO_MODE = true;
+  document.getElementById('config-screen').classList.add('hidden');
+  accounts = getDemoAccounts();
+  setSyncStatus('','Demo mode');
+  populateCatFilter(); renderAccounts(); hideLoading();
+}
+
+// ── SAVE OPERATIONS ───────────────────────────────────────────────
+async function saveContact(id){
+  const a = accounts.find(x=>String(x.id)===String(id));
+  if(!a) return;
+  const data = {
+    name:     document.getElementById(`cn-name-${id}`).value.trim(),
+    designation: document.getElementById(`cn-desig-${id}`).value.trim(),
+    email:    document.getElementById(`cn-email-${id}`).value.trim(),
+    phone:    document.getElementById(`cn-phone-${id}`).value.trim(),
+    linkedin: document.getElementById(`cn-linkedin-${id}`).value.trim(),
+    nextstep: document.getElementById(`cn-nextstep-${id}`).value.trim(),
+  };
+  a.contact = data;
+  if(!DEMO_MODE){
+    setSyncStatus('syncing','Saving…');
+    try {
+      const res = await apiPost({action:'saveContact', id, data});
+      if(res.error) throw new Error(res.error);
+      setSyncStatus('ok','Saved · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
+    } catch(e){ setSyncStatus('error','Save failed'); toast('Save failed: '+e.message, true); return; }
+  }
+  activeTabs[id]='contact'; renderAccounts(); toast('Contact saved ✓');
+}
+
+async function saveEdit(id){
+  const a = accounts.find(x=>String(x.id)===String(id));
+  if(!a) return;
+  a.name        = document.getElementById(`e-name-${id}`).value.trim() || a.name;
+  a.parent      = document.getElementById(`e-parent-${id}`).value.trim();
+  a.category    = document.getElementById(`e-cat-${id}`).value;
+  a.status      = document.getElementById(`e-status-${id}`).value;
+  a.action      = document.getElementById(`e-action-${id}`).value;
+  a.tier        = document.getElementById(`e-tier-${id}`).value;
+  a.score       = parseInt(document.getElementById(`e-score-${id}`).value)  || a.score;
+  a.confidence  = document.getElementById(`e-conf-${id}`).value;
+  a.demandLow   = parseInt(document.getElementById(`e-dlow-${id}`).value)   || a.demandLow;
+  a.demandHigh  = parseInt(document.getElementById(`e-dhigh-${id}`).value)  || a.demandHigh;
+  a.platforms   = document.getElementById(`e-plat-${id}`).value.split(',').map(s=>s.trim()).filter(Boolean);
+  a.pitch       = document.getElementById(`e-pitch-${id}`).value.trim();
+  a.fulfil      = document.getElementById(`e-fulfil-${id}`).value.trim();
+  ['qc','sku','density','pilot','access','logo'].forEach(k=>{
+    const v=parseInt(document.getElementById(`e-${k}-${id}`).value);
+    if(v>=1&&v<=5) a[k]=v;
+  });
+  if(!DEMO_MODE){
+    setSyncStatus('syncing','Saving…');
+    try {
+      const res = await apiPost({action:'saveAccount', data: a});
+      if(res.error) throw new Error(res.error);
+      setSyncStatus('ok','Saved · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
+    } catch(e){ setSyncStatus('error','Save failed'); toast('Save failed: '+e.message, true); return; }
+  }
+  activeTabs[id]='overview'; renderAccounts(); toast('Changes saved ✓');
+}
+
+async function addNote(id){
+  const a = accounts.find(x=>String(x.id)===String(id));
+  const txt = document.getElementById(`nt-${id}`).value.trim();
+  if(!txt) return;
+  const author = document.getElementById(`na-${id}`).value.trim();
+  const d = new Date();
+  const date = d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  let noteId = 'note_'+Date.now();
+  if(!DEMO_MODE){
+    setSyncStatus('syncing','Saving…');
+    try {
+      const res = await apiPost({action:'addNote', id, data:{text:txt, author, accountName:a.name}});
+      if(res.error) throw new Error(res.error);
+      if(res.noteId) noteId = res.noteId;
+      setSyncStatus('ok','Saved · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
+    } catch(e){ setSyncStatus('error','Save failed'); toast('Save failed: '+e.message, true); return; }
+  }
+  if(!a.notes) a.notes=[];
+  a.notes.unshift({noteId, text:txt, author, date, ts:d.getTime()});
+  activeTabs[id]='notes'; renderAccounts(); toast('Note added ✓');
+}
+
+async function delNote(id, noteId){
+  const a = accounts.find(x=>String(x.id)===String(id));
+  if(!a) return;
+  if(!DEMO_MODE){
+    setSyncStatus('syncing','Deleting…');
+    try {
+      const res = await apiPost({action:'deleteNote', noteId});
+      if(res.error) throw new Error(res.error);
+      setSyncStatus('ok','Deleted');
+    } catch(e){ setSyncStatus('error','Delete failed'); toast('Delete failed: '+e.message, true); return; }
+  }
+  a.notes = (a.notes||[]).filter(n=>String(n.noteId)!==String(noteId));
+  activeTabs[id]='notes'; renderAccounts();
+}
+
+async function deleteAccount(id){
+  if(!confirm('Remove this account from the CRM and Google Sheets?')) return;
+  if(!DEMO_MODE){
+    setSyncStatus('syncing','Deleting…');
+    try {
+      const res = await apiPost({action:'deleteAccount', id});
+      if(res.error) throw new Error(res.error);
+      setSyncStatus('ok','Deleted');
+    } catch(e){ setSyncStatus('error','Delete failed'); toast('Delete failed: '+e.message, true); return; }
+  }
+  accounts = accounts.filter(a=>String(a.id)!==String(id));
+  delete openRows[id]; renderAccounts(); toast('Account deleted');
+}
+
+async function addAccount(){
+  const name = document.getElementById('m-name').value.trim();
+  if(!name){ alert('Account name is required'); return; }
+  const btn = document.getElementById('add-btn');
+  btn.disabled=true; btn.textContent='Saving…';
+  const data = {
+    name,
+    parent:    document.getElementById('m-parent').value.trim(),
+    category:  document.getElementById('m-cat').value,
+    tier:      document.getElementById('m-tier').value,
+    action:    document.getElementById('m-action').value,
+    score:     parseInt(document.getElementById('m-score').value)||70,
+    demandLow: parseInt(document.getElementById('m-dlow').value)||0,
+    demandHigh:parseInt(document.getElementById('m-dhigh').value)||0,
+    platforms: document.getElementById('m-platforms').value.split(',').map(s=>s.trim()).filter(Boolean),
+    pitch:     document.getElementById('m-pitch').value.trim(),
+    fulfil:    document.getElementById('m-fulfil').value.trim(),
+    qc:3, sku:3, density:3, pilot:3, access:3, logo:3, confidence:'Low',
+    contact: {
+      name:        document.getElementById('m-cname').value.trim(),
+      designation: document.getElementById('m-cdesig').value.trim(),
+      email:       document.getElementById('m-cemail').value.trim(),
+      phone:       document.getElementById('m-cphone').value.trim(),
+      linkedin:    document.getElementById('m-clinkedin').value.trim(),
+    }
+  };
+  let newId = 'acc_'+Date.now();
+  if(!DEMO_MODE){
+    setSyncStatus('syncing','Saving…');
+    try {
+      const res = await apiPost({action:'addAccount', data});
+      if(res.error) throw new Error(res.error);
+      if(res.id) newId = res.id;
+      setSyncStatus('ok','Saved · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
+    } catch(e){ setSyncStatus('error','Save failed'); toast('Save failed: '+e.message, true); btn.disabled=false; btn.textContent='Add Account'; return; }
+  }
+  accounts.unshift({...data, id:newId, status:'Not Started', notes:[]});
+  closeAddModal(); curFilter='all'; renderAccounts(); toast('Account added ✓');
+  btn.disabled=false; btn.textContent='Add Account';
+  ['m-name','m-parent','m-platforms','m-pitch','m-fulfil','m-dlow','m-dhigh','m-score','m-cname','m-cdesig','m-cemail','m-cphone','m-clinkedin'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+}
+
+// ── RENDER ────────────────────────────────────────────────────────
+function populateCatFilter(){
+  const cats = [...new Set([...CATEGORIES, ...accounts.map(a=>a.category).filter(Boolean)])].sort();
+  const cf = document.getElementById('cat-f');
+  if(cf) cf.innerHTML = '<option value="">All Categories</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');
+  const mc = document.getElementById('m-cat');
+  if(mc) mc.innerHTML = CATEGORIES.map(c=>`<option>${c}</option>`).join('');
 }
 
 function getFiltered(){
   let list = [...accounts];
-  const q = document.getElementById('search-box').value.toLowerCase();
-  const tier = document.getElementById('tier-f').value;
-  const cat = document.getElementById('cat-f').value;
-  const sort = document.getElementById('sort-f').value;
+  const q    = (document.getElementById('search-box')||{}).value||'';
+  const tier = (document.getElementById('tier-f')||{}).value||'';
+  const cat  = (document.getElementById('cat-f')||{}).value||'';
+  const sort = (document.getElementById('sort-f')||{}).value||'score';
   if(curFilter==='Approach now'||curFilter==='Shortlist'||curFilter==='Validate')
     list = list.filter(a=>a.action===curFilter);
   else if(curFilter.startsWith('status:'))
     list = list.filter(a=>a.status===curFilter.slice(7));
-  if(q) list = list.filter(a=>(a.name+a.category+a.parent+(a.platforms||[]).join(' ')+a.pitch).toLowerCase().includes(q));
+  if(q)    list = list.filter(a=>(a.name+a.category+a.parent+(a.platforms||[]).join(' ')+a.pitch).toLowerCase().includes(q.toLowerCase()));
   if(tier) list = list.filter(a=>a.tier===tier);
-  if(cat) list = list.filter(a=>a.category===cat);
-  const sm={"Not Started":0,"Researching":1,"Email Sent":2,"Meeting Booked":3,"In Discussion":4,"Partner Confirmed":5,"On Hold":6};
-  if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  if(cat)  list = list.filter(a=>a.category===cat);
+  const sm = {"Not Started":0,"Researching":1,"Email Sent":2,"Meeting Booked":3,"In Discussion":4,"Partner Confirmed":5,"On Hold":6};
+  if(sort==='name')   list.sort((a,b)=>a.name.localeCompare(b.name));
   else if(sort==='demand') list.sort((a,b)=>b.demandHigh-a.demandHigh);
   else if(sort==='status') list.sort((a,b)=>(sm[b.status]||0)-(sm[a.status]||0));
   else list.sort((a,b)=>b.score-a.score);
   return list;
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  RENDER ACCOUNTS
-// ══════════════════════════════════════════════════════════════════════
 function renderAccounts(){
-  const list = document.getElementById('account-list');
+  const listEl = document.getElementById('account-list');
+  if(!listEl) return;
   const filtered = getFiltered();
-  if(!filtered.length){
-    list.innerHTML='<div class="empty"><div class="empty-icon">◎</div>No accounts found</div>';
-    updateSidebar(); updateStats(); return;
-  }
-  list.innerHTML = filtered.map((a, i) => {
-    const a_ = av(i);
-    const tab = activeTabs[a.id] || 'overview';
-    const open = openRows[a.id];
-    return `
-<div class="acc-card ${open?'open':''}" id="card-${a.id}" style="animation-delay:${i*.02}s">
-  <div class="row-hd" onclick="toggleRow(${a.id})">
-    <div class="avatar" style="background:${a_.bg};color:${a_.fg}">${ini(a.name)}</div>
-    <div>
-      <div class="rname">${esc(a.name)}</div>
-      <div class="rcat">${esc(a.category)} · <span class="tier-pill ${tcls(a.tier)}">${a.tier}</span></div>
-    </div>
-    <span class="badge ${badgeCls(a.action)}">${a.action}</span>
+  if(!filtered.length){ listEl.innerHTML='<div class="empty"><div class="empty-icon">◎</div>No accounts found</div>'; updateSidebar(); updateStats(); return; }
+  listEl.innerHTML = filtered.map((a,i)=>{
+    const av_=av(i), tab=activeTabs[a.id]||'overview', open=openRows[a.id], c=a.contact||{};
+    return `<div class="acc-card ${open?'open':''}" id="card-${a.id}" style="animation-delay:${i*.02}s">
+  <div class="row-hd" onclick="toggleRow('${a.id}')">
+    <div class="avatar" style="background:${av_.bg};color:${av_.fg}">${ini(a.name)}</div>
+    <div><div class="rname">${esc(a.name)}</div><div class="rcat">${esc(a.category)} · <span class="tier-pill ${tCls(a.tier)}">${a.tier}</span></div></div>
+    <span class="badge ${bCls(a.action)}">${a.action}</span>
     <span class="sbadge ${sCls(a.status)}">${a.status}</span>
     <div style="font-size:10px;color:var(--text3);text-align:right">${a.demandLow}–${a.demandHigh}<br><span>orders/day</span></div>
     <div class="score-num ${sc(a.score)}">${a.score}</div>
@@ -771,53 +731,46 @@ function renderAccounts(){
   </div>
   <div class="panel">
     <div class="panel-tabs">
-      <button class="ptab ${tab==='overview'?'active':''}" onclick="switchTab(event,${a.id},'overview')">Overview</button>
-      <button class="ptab ${tab==='contact'?'active':''}" onclick="switchTab(event,${a.id},'contact')">Contact</button>
-      <button class="ptab ${tab==='edit'?'active':''}" onclick="switchTab(event,${a.id},'edit')">Edit Details</button>
-      <button class="ptab ${tab==='notes'?'active':''}" onclick="switchTab(event,${a.id},'notes')">Notes${a.notes&&a.notes.length?` <span style="background:var(--accent-dim);color:var(--accent);border-radius:6px;padding:0 5px;font-size:9px">${a.notes.length}</span>`:''}</button>
+      <button class="ptab ${tab==='overview'?'active':''}" onclick="switchTab(event,'${a.id}','overview')">Overview</button>
+      <button class="ptab ${tab==='contact'?'active':''}" onclick="switchTab(event,'${a.id}','contact')">Contact${c.name?' <span style="background:var(--accent-dim);color:var(--accent);border-radius:5px;padding:0 4px;font-size:9px">✓</span>':''}</button>
+      <button class="ptab ${tab==='edit'?'active':''}" onclick="switchTab(event,'${a.id}','edit')">Edit Details</button>
+      <button class="ptab ${tab==='notes'?'active':''}" onclick="switchTab(event,'${a.id}','notes')">Notes${a.notes&&a.notes.length?` <span style="background:var(--accent-dim);color:var(--accent);border-radius:5px;padding:0 4px;font-size:9px">${a.notes.length}</span>`:''}</button>
     </div>
-
     <!-- OVERVIEW -->
     <div class="tc ${tab==='overview'?'active':''}" id="tc-overview-${a.id}">
       <div class="ov-grid">
         <div class="info-b"><div class="info-lbl">Pitch Angle</div><div class="info-val">${esc(a.pitch)||'—'}</div></div>
         <div class="info-b"><div class="info-lbl">Fulfilment Signal</div><div class="info-val">${esc(a.fulfil)||'—'}</div></div>
-        <div class="info-b"><div class="info-lbl">Bangalore Demand/Day</div><div class="info-val green">${a.demandLow}–${a.demandHigh} <span style="font-size:10px;color:var(--text3)">(${a.confidence||'—'})</span></div></div>
+        <div class="info-b"><div class="info-lbl">Demand / Day</div><div class="info-val green">${a.demandLow}–${a.demandHigh} <span style="font-size:10px;color:var(--text3)">(${a.confidence||'—'})</span></div></div>
         <div class="info-b ov-full"><div class="info-lbl">Platforms</div><div class="ptags">${(a.platforms||[]).map(p=>`<span class="ptag">${esc(p)}</span>`).join('')}</div></div>
       </div>
       <div class="info-lbl" style="margin-bottom:8px">Dimension Scores</div>
-      <div class="sc-row">
-        ${[["QC Urgency",a.qc],["SKU Fit",a.sku],["Order Density",a.density],["Pilot Willing",a.pilot],["Accessibility",a.access],["Logo Value",a.logo]].map(([l,v])=>`
-          <div class="sc-item"><div class="sc-lbl">${l}</div><div class="sc-circle ${scCircle(v)}">${v}</div></div>`).join('')}
-      </div>
+      <div class="sc-row">${[["QC Urgency",a.qc],["SKU Fit",a.sku],["Order Density",a.density],["Pilot Willing",a.pilot],["Accessibility",a.access],["Logo Value",a.logo]].map(([l,v])=>`<div class="sc-item"><div class="sc-lbl">${l}</div><div class="sc-circle sc${v||3}">${v||3}</div></div>`).join('')}</div>
     </div>
-
     <!-- CONTACT -->
     <div class="tc ${tab==='contact'?'active':''}" id="tc-contact-${a.id}">
-      <div style="margin-bottom:10px;font-size:11px;color:var(--text3)">Contact details auto-save to Google Sheets.</div>
+      <div style="margin-bottom:10px;font-size:11px;color:var(--text3)">Saved to Google Sheets in real time.</div>
       <div class="contact-grid">
-        <div class="field-g"><div class="field-l">Contact Name</div><input class="finput" id="cn-name-${a.id}" value="${esc(a.contact?.name||'')}" placeholder="e.g. Rahul Sharma"></div>
-        <div class="field-g"><div class="field-l">Designation / Role</div><input class="finput" id="cn-desig-${a.id}" value="${esc(a.contact?.designation||'')}" placeholder="e.g. Head of Supply Chain"></div>
-        <div class="field-g"><div class="field-l">Email Address</div><input class="finput" type="email" id="cn-email-${a.id}" value="${esc(a.contact?.email||'')}" placeholder="name@company.com"></div>
-        <div class="field-g"><div class="field-l">Phone / WhatsApp</div><input class="finput" id="cn-phone-${a.id}" value="${esc(a.contact?.phone||'')}" placeholder="+91 98765 43210"></div>
-        <div class="field-g ct-full"><div class="field-l">LinkedIn / Approach Route</div><input class="finput" id="cn-linkedin-${a.id}" value="${esc(a.contact?.linkedin||a.contact?.route||'')}" placeholder="linkedin.com/in/…"></div>
-        <div class="field-g ct-full"><div class="field-l">Next Step / Follow-up Action</div><textarea class="ftarea" id="cn-nextstep-${a.id}" placeholder="e.g. Send intro email by Friday…">${esc(a.contact?.nextstep||'')}</textarea></div>
+        <div class="field-g"><div class="field-l">Contact Name</div><input class="finput" id="cn-name-${a.id}" value="${esc(c.name||'')}" placeholder="e.g. Rahul Sharma"></div>
+        <div class="field-g"><div class="field-l">Designation</div><input class="finput" id="cn-desig-${a.id}" value="${esc(c.designation||'')}" placeholder="e.g. Head of Supply Chain"></div>
+        <div class="field-g"><div class="field-l">Email</div><input class="finput" type="email" id="cn-email-${a.id}" value="${esc(c.email||'')}" placeholder="name@company.com"></div>
+        <div class="field-g"><div class="field-l">Phone / WhatsApp</div><input class="finput" id="cn-phone-${a.id}" value="${esc(c.phone||'')}" placeholder="+91 98765 43210"></div>
+        <div class="field-g ct-full"><div class="field-l">LinkedIn / Approach Route</div><input class="finput" id="cn-linkedin-${a.id}" value="${esc(c.linkedin||c.route||'')}" placeholder="linkedin.com/in/…"></div>
+        <div class="field-g ct-full"><div class="field-l">Next Step / Follow-up</div><textarea class="ftarea" id="cn-nextstep-${a.id}" placeholder="e.g. Send intro email by Friday…">${esc(c.nextstep||'')}</textarea></div>
       </div>
       <div class="save-row">
-        <button class="btn btn-accent" onclick="saveContact(${a.id})">Save Contact</button>
-        <div style="font-size:11px;color:var(--text3);align-self:center" id="cn-saved-${a.id}"></div>
+        <button class="btn btn-accent" onclick="saveContact('${a.id}')">Save Contact</button>
       </div>
-      ${a.contact?.name?`<div style="margin-top:14px;padding:10px 12px;background:var(--bg3);border-radius:var(--r-sm);border:1px solid var(--border)">
-        <div class="info-lbl" style="margin-bottom:6px">Current Contact on File</div>
+      ${c.name||c.email?`<div style="margin-top:14px;padding:10px 12px;background:var(--bg3);border-radius:var(--r-sm);border:1px solid var(--border)">
+        <div class="info-lbl" style="margin-bottom:5px">On File</div>
         <div style="font-size:12px;color:var(--text);line-height:1.8">
-          <strong>${esc(a.contact.name)}</strong>${a.contact.designation?' · '+esc(a.contact.designation):''}
-          ${a.contact.email?`<br>✉ <a href="mailto:${esc(a.contact.email)}" style="color:var(--info)">${esc(a.contact.email)}</a>`:''}
-          ${a.contact.phone?`<br>📞 ${esc(a.contact.phone)}`:''}
-          ${a.contact.linkedin?`<br>🔗 ${esc(a.contact.linkedin)}`:''}
+          ${c.name?`<strong>${esc(c.name)}</strong>${c.designation?' · '+esc(c.designation):''}`:esc(c.designation||'')}
+          ${c.email?`<br>✉ <a href="mailto:${esc(c.email)}" style="color:var(--info)">${esc(c.email)}</a>`:''}
+          ${c.phone?`<br>📞 ${esc(c.phone)}`:''}
+          ${c.linkedin?`<br>🔗 <a href="${esc(c.linkedin)}" target="_blank" style="color:var(--info)">${esc(c.linkedin)}</a>`:''}
         </div>
       </div>`:''}
     </div>
-
     <!-- EDIT -->
     <div class="tc ${tab==='edit'?'active':''}" id="tc-edit-${a.id}">
       <div class="edit-grid">
@@ -825,7 +778,7 @@ function renderAccounts(){
         <div class="field-g"><div class="field-l">Parent Company</div><input class="finput" id="e-parent-${a.id}" value="${esc(a.parent||'')}"></div>
         <div class="field-g"><div class="field-l">Category</div><select class="fsel" id="e-cat-${a.id}">${CATEGORIES.map(c=>`<option${c===a.category?' selected':''}>${c}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Status</div><select class="fsel" id="e-status-${a.id}">${STATUSES.map(s=>`<option${s===a.status?' selected':''}>${s}</option>`).join('')}</select></div>
-        <div class="field-g"><div class="field-l">Recommended Action</div><select class="fsel" id="e-action-${a.id}">${['Approach now','Shortlist','Validate'].map(s=>`<option${s===a.action?' selected':''}>${s}</option>`).join('')}</select></div>
+        <div class="field-g"><div class="field-l">Action</div><select class="fsel" id="e-action-${a.id}">${['Approach now','Shortlist','Validate'].map(s=>`<option${s===a.action?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Tier</div><select class="fsel" id="e-tier-${a.id}">${['Tier 1','Tier 2','Strategic'].map(s=>`<option${s===a.tier?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Fit Score (0–100)</div><input class="finput" id="e-score-${a.id}" type="number" min="0" max="100" value="${a.score}"></div>
         <div class="field-g"><div class="field-l">Confidence</div><select class="fsel" id="e-conf-${a.id}">${['Low','Low-Medium','Medium','High'].map(s=>`<option${s===a.confidence?' selected':''}>${s}</option>`).join('')}</select></div>
@@ -835,168 +788,45 @@ function renderAccounts(){
         <div class="field-g edit-full"><div class="field-l">Pitch Angle</div><textarea class="ftarea" id="e-pitch-${a.id}">${esc(a.pitch||'')}</textarea></div>
         <div class="field-g edit-full"><div class="field-l">Fulfilment Signal</div><input class="finput" id="e-fulfil-${a.id}" value="${esc(a.fulfil||'')}"></div>
       </div>
-      <div class="info-lbl" style="margin-top:14px;margin-bottom:8px">Dimension Scores (1–5)</div>
-      <div class="edit-grid">
-        ${[["QC Urgency","qc"],["SKU Fit","sku"],["Order Density","density"],["Pilot Willing","pilot"],["Accessibility","access"],["Logo Value","logo"]].map(([l,k])=>`
-        <div class="field-g"><div class="field-l">${l}</div><input class="finput" id="e-${k}-${a.id}" type="number" min="1" max="5" value="${a[k]}"></div>`).join('')}
-      </div>
+      <div class="info-lbl" style="margin-top:12px;margin-bottom:8px">Dimension Scores (1–5)</div>
+      <div class="edit-grid">${[["QC Urgency","qc"],["SKU Fit","sku"],["Order Density","density"],["Pilot Willing","pilot"],["Accessibility","access"],["Logo Value","logo"]].map(([l,k])=>`<div class="field-g"><div class="field-l">${l}</div><input class="finput" id="e-${k}-${a.id}" type="number" min="1" max="5" value="${a[k]||3}"></div>`).join('')}</div>
       <div class="save-row">
-        <button class="btn btn-accent" onclick="saveEdit(${a.id})">Save Changes</button>
-        <button class="btn btn-danger" onclick="confirmDelete(${a.id})">Delete Account</button>
+        <button class="btn btn-accent" onclick="saveEdit('${a.id}')">Save Changes</button>
+        <button class="btn" style="color:var(--danger);border-color:rgba(232,97,74,.3)" onclick="deleteAccount('${a.id}')">Delete Account</button>
       </div>
     </div>
-
     <!-- NOTES -->
     <div class="tc ${tab==='notes'?'active':''}" id="tc-notes-${a.id}">
-      <div class="notes-wrap" id="notes-${a.id}">
-        ${!a.notes||!a.notes.length?'<div style="color:var(--text3);font-size:12px;padding:4px 0">No notes yet. Add your first note below.</div>':''}
-        ${(a.notes||[]).map((n,ni)=>`
-          <div class="note-card">
-            <div class="note-meta"><span>${esc(n.date)}${n.author?' · '+esc(n.author):''}</span><button class="note-rm" onclick="delNote(${a.id},${ni})">✕ Remove</button></div>
-            <div class="note-body">${esc(n.text)}</div>
-          </div>`).join('')}
+      <div class="notes-wrap">
+        ${!(a.notes&&a.notes.length)?'<div style="color:var(--text3);font-size:12px;padding:4px 0">No notes yet.</div>':''}
+        ${(a.notes||[]).map(n=>`<div class="note-card"><div class="note-meta"><span>${esc(n.date)}${n.author?' · '+esc(n.author):''}</span><button class="note-rm" onclick="delNote('${a.id}','${n.noteId}')">✕ Remove</button></div><div class="note-body">${esc(n.text)}</div></div>`).join('')}
       </div>
       <div class="note-add">
         <textarea class="ftarea" id="nt-${a.id}" placeholder="Write a call summary, follow-up action, or any note…" style="min-height:65px"></textarea>
         <div class="note-row">
           <input class="finput" id="na-${a.id}" placeholder="Your name (optional)" style="max-width:180px">
-          <button class="btn btn-accent" onclick="addNote(${a.id})">Add Note</button>
+          <button class="btn btn-accent" onclick="addNote('${a.id}')">Add Note</button>
         </div>
       </div>
     </div>
-
   </div>
 </div>`;
   }).join('');
-  updateSidebar();
-  updateStats();
+  updateSidebar(); updateStats();
 }
 
-function toggleRow(id){
-  openRows[id] = !openRows[id];
-  if(!activeTabs[id]) activeTabs[id] = 'overview';
-  renderAccounts();
-}
-function switchTab(e, id, tab){
-  e.stopPropagation();
-  activeTabs[id] = tab;
+function toggleRow(id){ openRows[id]=!openRows[id]; if(!activeTabs[id]) activeTabs[id]='overview'; renderAccounts(); }
+function switchTab(e,id,tab){
+  e.stopPropagation(); activeTabs[id]=tab;
   document.querySelectorAll(`#card-${id} .ptab`).forEach(b=>b.classList.remove('active'));
   document.querySelectorAll(`#card-${id} .tc`).forEach(c=>c.classList.remove('active'));
   e.target.classList.add('active');
-  const t = document.getElementById(`tc-${tab}-${id}`);
-  if(t) t.classList.add('active');
+  const t=document.getElementById(`tc-${tab}-${id}`); if(t) t.classList.add('active');
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  SAVE CONTACT
-// ══════════════════════════════════════════════════════════════════════
-function saveContact(id){
-  const a = accounts.find(x=>x.id===id);
-  if(!a) return;
-  a.contact = {
-    name: document.getElementById(`cn-name-${id}`).value.trim(),
-    designation: document.getElementById(`cn-desig-${id}`).value.trim(),
-    email: document.getElementById(`cn-email-${id}`).value.trim(),
-    phone: document.getElementById(`cn-phone-${id}`).value.trim(),
-    linkedin: document.getElementById(`cn-linkedin-${id}`).value.trim(),
-    nextstep: document.getElementById(`cn-nextstep-${id}`).value.trim(),
-  };
-  activeTabs[id] = 'contact';
-  triggerSave();
-  renderAccounts();
-  toast('Contact saved ✓');
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  SAVE EDIT
-// ══════════════════════════════════════════════════════════════════════
-function saveEdit(id){
-  const a = accounts.find(x=>x.id===id);
-  if(!a) return;
-  a.name = document.getElementById(`e-name-${id}`).value.trim() || a.name;
-  a.parent = document.getElementById(`e-parent-${id}`).value.trim();
-  a.category = document.getElementById(`e-cat-${id}`).value;
-  a.status = document.getElementById(`e-status-${id}`).value;
-  a.action = document.getElementById(`e-action-${id}`).value;
-  a.tier = document.getElementById(`e-tier-${id}`).value;
-  a.score = parseInt(document.getElementById(`e-score-${id}`).value) || a.score;
-  a.confidence = document.getElementById(`e-conf-${id}`).value;
-  a.demandLow = parseInt(document.getElementById(`e-dlow-${id}`).value) || a.demandLow;
-  a.demandHigh = parseInt(document.getElementById(`e-dhigh-${id}`).value) || a.demandHigh;
-  a.platforms = document.getElementById(`e-plat-${id}`).value.split(',').map(s=>s.trim()).filter(Boolean);
-  a.pitch = document.getElementById(`e-pitch-${id}`).value.trim();
-  a.fulfil = document.getElementById(`e-fulfil-${id}`).value.trim();
-  ['qc','sku','density','pilot','access','logo'].forEach(k=>{
-    const v = parseInt(document.getElementById(`e-${k}-${id}`).value);
-    if(v>=1&&v<=5) a[k]=v;
-  });
-  activeTabs[id] = 'overview';
-  triggerSave();
-  renderAccounts();
-  toast('Changes saved ✓');
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  NOTES
-// ══════════════════════════════════════════════════════════════════════
-function addNote(id){
-  const a = accounts.find(x=>x.id===id);
-  const txt = document.getElementById(`nt-${id}`).value.trim();
-  if(!txt) return;
-  const author = document.getElementById(`na-${id}`).value.trim();
-  const d = new Date();
-  if(!a.notes) a.notes = [];
-  a.notes.push({
-    text: txt, author,
-    date: d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
-    ts: d.getTime()
-  });
-  activeTabs[id] = 'notes';
-  triggerSave();
-  renderAccounts();
-  toast('Note added ✓');
-}
-
-function delNote(id, ni){
-  const a = accounts.find(x=>x.id===id);
-  a.notes.splice(ni,1);
-  activeTabs[id] = 'notes';
-  triggerSave();
-  renderAccounts();
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  DELETE ACCOUNT
-// ══════════════════════════════════════════════════════════════════════
-function confirmDelete(id){
-  const a = accounts.find(x=>x.id===id);
-  openConfirm(
-    'Remove Account',
-    `Remove "${a.name}" from CRM? This cannot be undone.`,
-    () => {
-      accounts = accounts.filter(a=>a.id!==id);
-      delete openRows[id];
-      triggerSave();
-      renderAccounts();
-      toast('Account removed');
-    }
-  );
-}
-
-function openConfirm(title, msg, onOk){
-  document.getElementById('confirm-title').textContent = title;
-  document.getElementById('confirm-msg').textContent = msg;
-  const btn = document.getElementById('confirm-ok');
-  btn.onclick = () => { onOk(); closeConfirm(); };
-  document.getElementById('confirm-modal').classList.add('show');
-}
-function closeConfirm(){ document.getElementById('confirm-modal').classList.remove('show'); }
-
-// ══════════════════════════════════════════════════════════════════════
-//  SIDEBAR / STATS
-// ══════════════════════════════════════════════════════════════════════
+// ── SIDEBAR / STATS ───────────────────────────────────────────────
 function updateSidebar(){
-  const c = {approach:0,shortlist:0,validate:0,ns:0,re:0,em:0,mb:0,id:0,co:0,oh:0};
+  const c={approach:0,shortlist:0,validate:0,ns:0,re:0,em:0,mb:0,id:0,co:0,oh:0};
   accounts.forEach(a=>{
     if(a.action==='Approach now') c.approach++;
     else if(a.action==='Shortlist') c.shortlist++;
@@ -1004,210 +834,112 @@ function updateSidebar(){
     const m={"Not Started":"ns","Researching":"re","Email Sent":"em","Meeting Booked":"mb","In Discussion":"id","Partner Confirmed":"co","On Hold":"oh"};
     if(m[a.status]) c[m[a.status]]++;
   });
-  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
-  set('c-all',accounts.length); set('c-approach',c.approach); set('c-shortlist',c.shortlist); set('c-validate',c.validate);
-  set('c-ns',c.ns); set('c-res',c.re); set('c-em',c.em); set('c-mb',c.mb); set('c-id',c.id); set('c-co',c.co); set('c-oh',c.oh);
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  s('c-all',accounts.length); s('c-approach',c.approach); s('c-shortlist',c.shortlist); s('c-validate',c.validate);
+  s('c-ns',c.ns); s('c-res',c.re); s('c-em',c.em); s('c-mb',c.mb); s('c-id',c.id); s('c-co',c.co); s('c-oh',c.oh);
   const contacted = accounts.filter(a=>a.status!=='Not Started').length;
   const pct = accounts.length ? Math.round(contacted/accounts.length*100) : 0;
-  set('prog-n',contacted); set('prog-total',accounts.length);
-  const pf = document.getElementById('prog-fill'); if(pf) pf.style.width = pct+'%';
+  s('prog-n',contacted); s('prog-total',accounts.length);
+  const pf=document.getElementById('prog-fill'); if(pf) pf.style.width=pct+'%';
 }
-
 function updateStats(){
-  const n = accounts.length;
-  const avg = n ? Math.round(accounts.reduce((s,a)=>s+a.score,0)/n) : 0;
-  const demand = accounts.reduce((s,a)=>s+a.demandHigh,0);
-  const contacted = accounts.filter(a=>a.status!=='Not Started').length;
-  const confirmed = accounts.filter(a=>a.status==='Partner Confirmed').length;
-  const set = (id,v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
-  set('st-total',n);
-  set('st-score', n ? avg+'<span>/100</span>' : '—<span>/100</span>');
-  const dk = demand>=1000 ? (demand/1000).toFixed(1)+'k' : demand;
-  set('st-demand', dk+'<span>/day</span>');
-  set('st-contacted',contacted);
-  set('st-confirmed',confirmed);
+  const n=accounts.length;
+  const avg=n?Math.round(accounts.reduce((s,a)=>s+a.score,0)/n):0;
+  const demand=accounts.reduce((s,a)=>s+(Number(a.demandHigh)||0),0);
+  const contacted=accounts.filter(a=>a.status!=='Not Started').length;
+  const confirmed=accounts.filter(a=>a.status==='Partner Confirmed').length;
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.innerHTML=v};
+  s('st-total',n); s('st-score',avg+'<span>/100</span>');
+  const dk=demand>=1000?(demand/1000).toFixed(1)+'k':demand;
+  s('st-demand',dk+'<span>/day</span>'); s('st-contacted',contacted); s('st-confirmed',confirmed);
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  ADD MODAL
-// ══════════════════════════════════════════════════════════════════════
-function openAddModal(){ document.getElementById('add-modal').classList.add('show'); }
-function closeAddModal(){ document.getElementById('add-modal').classList.remove('show'); }
-
-function addAccount(){
-  const name = document.getElementById('m-name').value.trim();
-  if(!name){ toast('Account name is required', true); return; }
-  accounts.push({
-    id: nextId++,
-    name,
-    parent: document.getElementById('m-parent').value.trim(),
-    category: document.getElementById('m-cat').value,
-    tier: document.getElementById('m-tier').value,
-    action: document.getElementById('m-action').value,
-    score: parseInt(document.getElementById('m-score').value)||70,
-    qc:3,sku:3,density:3,pilot:3,access:3,logo:3,
-    demandLow: parseInt(document.getElementById('m-dlow').value)||0,
-    demandHigh: parseInt(document.getElementById('m-dhigh').value)||0,
-    confidence: 'Low',
-    platforms: document.getElementById('m-platforms').value.split(',').map(s=>s.trim()).filter(Boolean),
-    pitch: document.getElementById('m-pitch').value.trim(),
-    fulfil: document.getElementById('m-fulfil').value.trim(),
-    status: 'Not Started',
-    contact: {
-      name: document.getElementById('m-cname').value.trim(),
-      designation: document.getElementById('m-cdesig').value.trim(),
-      email: document.getElementById('m-cemail').value.trim(),
-      phone: document.getElementById('m-cphone').value.trim(),
-      linkedin: document.getElementById('m-clinkedin').value.trim(),
-    },
-    notes: []
-  });
-  closeAddModal();
-  curFilter = 'all';
-  triggerSave();
+// ── PAGE / FILTER ─────────────────────────────────────────────────
+function showPage(page,btn){
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  document.getElementById('page-crm').style.display=page==='crm'?'flex':'none';
+  const sp=document.getElementById('page-summary'); sp.classList.toggle('active',page==='summary');
+  if(page==='summary') renderSummary();
+}
+function filterSide(f,el){
+  curFilter=f;
+  document.querySelectorAll('.s-item').forEach(i=>i.classList.remove('active')); el.classList.add('active');
   renderAccounts();
-  toast('Account added ✓');
-  ['m-name','m-parent','m-platforms','m-pitch','m-fulfil','m-dlow','m-dhigh','m-score','m-cname','m-cdesig','m-cemail','m-cphone','m-clinkedin']
-    .forEach(i=>{ const el=document.getElementById(i); if(el) el.value=''; });
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  EXPORT CSV
-// ══════════════════════════════════════════════════════════════════════
-function exportCSV(){
-  const h = ["Name","Parent","Category","Tier","Action","Status","Score","DemandLow","DemandHigh","Confidence","Platforms","Pitch","Fulfil","ContactName","Designation","Email","Phone","LinkedIn","NextStep","Notes"];
-  const rows = accounts.map(a=>[
-    a.name,a.parent,a.category,a.tier,a.action,a.status,a.score,a.demandLow,a.demandHigh,a.confidence||'',
-    (a.platforms||[]).join('; '), a.pitch, a.fulfil,
-    a.contact?.name||'', a.contact?.designation||'', a.contact?.email||'', a.contact?.phone||'', a.contact?.linkedin||'', a.contact?.nextstep||'',
-    (a.notes||[]).map(n=>n.date+': '+n.text).join(' | ')
-  ].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
-  const csv = [h.join(','), ...rows].join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const url = URL.createObjectURL(blob);
-  const el = document.createElement('a');
-  el.href = url; el.download = 'wolvbot_gtm_bangalore.csv'; el.click();
-  URL.revokeObjectURL(url);
-  toast('CSV exported ✓');
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  TOAST
-// ══════════════════════════════════════════════════════════════════════
-let _tt;
-function toast(msg, isErr=false){
-  clearTimeout(_tt);
-  const el = document.getElementById('toast');
-  const dot = el.querySelector('.toast-dot');
-  document.getElementById('toast-msg').textContent = msg;
-  el.classList.toggle('err', isErr);
-  dot.style.background = isErr ? 'var(--danger)' : 'var(--accent)';
-  el.classList.add('show');
-  _tt = setTimeout(()=>el.classList.remove('show'), 2800);
-}
-
-// ══════════════════════════════════════════════════════════════════════
-//  SUMMARY PAGE
-// ══════════════════════════════════════════════════════════════════════
+// ── SUMMARY PAGE ──────────────────────────────────────────────────
 function renderSummary(){
-  document.getElementById('sum-date').textContent = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
-  const n = accounts.length;
-  const avg = n ? Math.round(accounts.reduce((s,a)=>s+a.score,0)/n) : 0;
-  const totalDemand = accounts.reduce((s,a)=>s+a.demandHigh,0);
-  const contacted = accounts.filter(a=>a.status!=='Not Started').length;
-  const confirmed = accounts.filter(a=>a.status==='Partner Confirmed').length;
-  const approach = accounts.filter(a=>a.action==='Approach now').length;
-
+  document.getElementById('sum-sub').textContent='Wolvbot Bangalore ASRS VMI Pilot · '+new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const n=accounts.length, avg=n?Math.round(accounts.reduce((s,a)=>s+a.score,0)/n):0;
+  const td=accounts.reduce((s,a)=>s+(Number(a.demandHigh)||0),0);
+  const contacted=accounts.filter(a=>a.status!=='Not Started').length;
+  const confirmed=accounts.filter(a=>a.status==='Partner Confirmed').length;
+  const approach=accounts.filter(a=>a.action==='Approach now').length;
   document.getElementById('sum-kpis').innerHTML=`
     <div class="sum-card"><div class="sum-card-label">Total Accounts</div><div class="sum-card-val">${n}</div><div class="sum-card-sub">Bangalore GTM targets</div></div>
-    <div class="sum-card"><div class="sum-card-label">Avg Fit Score</div><div class="sum-card-val green">${avg}<span style="font-size:16px;font-family:'DM Sans',sans-serif;color:var(--text3)">/100</span></div><div class="sum-card-sub">Weighted opportunity</div></div>
-    <div class="sum-card"><div class="sum-card-label">Peak Daily Demand</div><div class="sum-card-val blue">${totalDemand>=1000?(totalDemand/1000).toFixed(1)+'k':totalDemand}</div><div class="sum-card-sub">Combined high est. / day</div></div>
-    <div class="sum-card"><div class="sum-card-label">Outreach Rate</div><div class="sum-card-val ${contacted>0?'green':'warn'}">${n?Math.round(contacted/n*100):0}<span style="font-size:16px;font-family:'DM Sans',sans-serif;color:var(--text3)">%</span></div><div class="sum-card-sub">${contacted} of ${n} contacted</div></div>
-    <div class="sum-card"><div class="sum-card-label">Design Partners</div><div class="sum-card-val green">${confirmed}<span style="font-size:16px;font-family:'DM Sans',sans-serif;color:var(--text3)">/5</span></div><div class="sum-card-sub">Target: 3–5 confirmed</div></div>
-    <div class="sum-card"><div class="sum-card-label">Priority Accounts</div><div class="sum-card-val">${approach}</div><div class="sum-card-sub">Marked "Approach Now"</div></div>
-  `;
-
-  const statusCounts = {};
-  STATUSES.forEach(s=>statusCounts[s]=0);
-  accounts.forEach(a=>statusCounts[a.status]=(statusCounts[a.status]||0)+1);
-  const pColors = {"Not Started":"var(--bg4)","Researching":"#e8a03a","Email Sent":"#5a9de8","Meeting Booked":"#a8d456","In Discussion":"#7bb82e","Partner Confirmed":"#4acf82","On Hold":"#e8614a"};
-  document.getElementById('sum-pipelinebar').innerHTML=STATUSES.map(s=>{
-    const pct = n ? Math.round(statusCounts[s]/n*100) : 0;
-    return pct ? `<div class="pipeline-seg" style="width:${pct}%;background:${pColors[s]};flex-shrink:0" title="${s}: ${statusCounts[s]}"></div>` : '';
-  }).join('');
-  document.getElementById('sum-funnel').innerHTML=STATUSES.map(s=>`
-    <div class="funnel-item">
-      <div style="display:flex;align-items:center;gap:7px">
-        <div style="width:7px;height:7px;border-radius:50%;background:${pColors[s]};flex-shrink:0"></div>
-        <div class="funnel-label">${s}</div>
-      </div>
-      <div class="funnel-count">${statusCounts[s]}</div>
-    </div>`).join('');
-
-  const top = [...accounts].sort((a,b)=>b.score-a.score).slice(0,8);
-  document.getElementById('sum-top-body').innerHTML=top.map((a,i)=>`
-    <tr>
-      <td style="color:var(--text3);font-size:11px">${i+1}</td>
-      <td><div style="font-size:12px;font-weight:500">${esc(a.name)}</div><div style="font-size:10px;color:var(--text3)">${esc(a.category)}</div></td>
-      <td><span class="badge ${badgeCls(a.action)}" style="font-size:9px">${a.action}</span></td>
-      <td><span class="sbadge ${sCls(a.status)}" style="font-size:9px">${a.status}</span></td>
-      <td style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--accent)">${a.score}</td>
-    </tr>`).join('');
-
-  const catMap = {};
-  accounts.forEach(a=>catMap[a.category]=(catMap[a.category]||0)+1);
-  const catSorted = Object.entries(catMap).sort((a,b)=>b[1]-a[1]);
-  const maxCat = catSorted[0]?catSorted[0][1]:1;
-  document.getElementById('sum-cat-chart').innerHTML=catSorted.map(([cat,cnt])=>`
-    <div class="cat-row">
-      <div class="cat-lbl" style="font-size:10px">${esc(cat)}</div>
-      <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${Math.round(cnt/maxCat*100)}%"></div></div>
-      <div class="cat-count">${cnt}</div>
-    </div>`).join('');
-
-  const demSorted = [...accounts].sort((a,b)=>b.demandHigh-a.demandHigh).slice(0,10);
-  const maxD = demSorted[0]?demSorted[0].demandHigh:1;
-  document.getElementById('sum-demand-bars').innerHTML=demSorted.map(a=>`
-    <div class="cat-row">
-      <div class="cat-lbl" style="font-size:10px">${esc(a.name)}</div>
-      <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${Math.round(a.demandHigh/maxD*100)}%;background:var(--info)"></div></div>
-      <div class="cat-count" style="width:40px">${a.demandHigh>=1000?(a.demandHigh/1000).toFixed(1)+'k':a.demandHigh}</div>
-    </div>`).join('');
-
-  const allNotes = [];
-  accounts.forEach(a=>(a.notes||[]).forEach(n=>allNotes.push({...n,account:a.name})));
+    <div class="sum-card"><div class="sum-card-label">Avg Fit Score</div><div class="sum-card-val green">${avg}<span style="font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text3)">/100</span></div><div class="sum-card-sub">Weighted opportunity</div></div>
+    <div class="sum-card"><div class="sum-card-label">Peak Daily Demand</div><div class="sum-card-val blue">${td>=1000?(td/1000).toFixed(1)+'k':td}</div><div class="sum-card-sub">Combined high est / day</div></div>
+    <div class="sum-card"><div class="sum-card-label">Outreach Rate</div><div class="sum-card-val ${contacted>0?'green':'warn'}">${n?Math.round(contacted/n*100):0}<span style="font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text3)">%</span></div><div class="sum-card-sub">${contacted} of ${n} contacted</div></div>
+    <div class="sum-card"><div class="sum-card-label">Design Partners</div><div class="sum-card-val green">${confirmed}<span style="font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text3)">/5</span></div><div class="sum-card-sub">Target: 3–5 confirmed</div></div>
+    <div class="sum-card"><div class="sum-card-label">Priority</div><div class="sum-card-val">${approach}</div><div class="sum-card-sub">Approach Now accounts</div></div>`;
+  const sc_={};STATUSES.forEach(s=>sc_[s]=0);accounts.forEach(a=>sc_[a.status]=(sc_[a.status]||0)+1);
+  document.getElementById('sum-pbar').innerHTML=STATUSES.map(s=>{const pct=n?Math.round(sc_[s]/n*100):0;return pct?`<div class="pipeline-seg" style="width:${pct}%;background:${S_COLORS[s]}" title="${s}: ${sc_[s]}"></div>`:''}).join('');
+  document.getElementById('sum-funnel').innerHTML=STATUSES.map(s=>`<div class="funnel-item"><div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:${S_COLORS[s]}"></div><div class="funnel-label">${s}</div></div><div class="funnel-count">${sc_[s]}</div></div>`).join('');
+  const top=[...accounts].sort((a,b)=>b.score-a.score).slice(0,8);
+  document.getElementById('sum-top').innerHTML=top.map((a,i)=>`<tr><td style="color:var(--text3)">${i+1}</td><td><div style="font-size:11px;font-weight:500">${esc(a.name)}</div><div style="font-size:10px;color:var(--text3)">${esc(a.category)}</div></td><td><span class="badge ${bCls(a.action)}" style="font-size:9px">${a.action}</span></td><td><span class="sbadge ${sCls(a.status)}" style="font-size:9px">${a.status}</span></td><td style="font-family:'DM Serif Display',serif;color:var(--accent)">${a.score}</td></tr>`).join('');
+  const cm={};accounts.forEach(a=>cm[a.category]=(cm[a.category]||0)+1);
+  const cs=Object.entries(cm).sort((a,b)=>b[1]-a[1]);const mc2=cs[0]?cs[0][1]:1;
+  document.getElementById('sum-cat').innerHTML=cs.map(([cat,cnt])=>`<div class="cat-row"><div class="cat-lbl">${esc(cat)}</div><div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${Math.round(cnt/mc2*100)}%"></div></div><div class="cat-count">${cnt}</div></div>`).join('');
+  const ds=[...accounts].sort((a,b)=>b.demandHigh-a.demandHigh).slice(0,10);const md=ds[0]?ds[0].demandHigh:1;
+  document.getElementById('sum-demand').innerHTML=ds.map(a=>`<div class="cat-row"><div class="cat-lbl">${esc(a.name)}</div><div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${Math.round(a.demandHigh/md*100)}%;background:var(--info)"></div></div><div class="cat-count">${a.demandHigh>=1000?(a.demandHigh/1000).toFixed(1)+'k':a.demandHigh}</div></div>`).join('');
+  const allNotes=[];accounts.forEach(a=>(a.notes||[]).forEach(n=>allNotes.push({...n,account:a.name})));
   allNotes.sort((a,b)=>(b.ts||0)-(a.ts||0));
-  document.getElementById('sum-activity').innerHTML=allNotes.slice(0,6).length
-    ?allNotes.slice(0,6).map(n=>`
-      <div class="activity-item">
-        <div class="activity-dot"></div>
-        <div>
-          <div class="activity-text"><strong>${esc(n.account)}</strong> — ${esc(n.text.slice(0,100))}${n.text.length>100?'…':''}</div>
-          <div class="activity-time">${esc(n.date)}${n.author?' · '+esc(n.author):''}</div>
-        </div>
-      </div>`).join('')
-    :'<div style="color:var(--text3);font-size:12px;padding:8px 0">No notes yet. Add notes to accounts to see activity here.</div>';
-
-  const tierMap={"Tier 1":0,"Tier 2":0,"Strategic":0};
-  accounts.forEach(a=>{if(tierMap[a.tier]!==undefined) tierMap[a.tier]++;});
-  const maxT = Math.max(...Object.values(tierMap),1);
-  const tColors = {"Tier 1":"var(--info)","Tier 2":"var(--accent)","Strategic":"var(--warn)"};
-  document.getElementById('sum-tier-chart').innerHTML=Object.entries(tierMap).map(([t,c])=>`
-    <div class="cat-row">
-      <div class="cat-lbl">${t}</div>
-      <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${Math.round(c/maxT*100)}%;background:${tColors[t]}"></div></div>
-      <div class="cat-count">${c}</div>
-    </div>`).join('');
+  document.getElementById('sum-activity').innerHTML=allNotes.length?allNotes.slice(0,6).map(n=>`<div class="act-item"><div class="act-dot"></div><div><div class="act-text"><strong>${esc(n.account)}</strong> — ${esc((n.text||'').slice(0,90))}${(n.text||'').length>90?'…':''}</div><div class="act-time">${esc(n.date)}${n.author?' · '+esc(n.author):''}</div></div></div>`).join(''):'<div style="color:var(--text3);font-size:11px;padding:6px 0">No notes yet.</div>';
+  const tm={"Tier 1":0,"Tier 2":0,"Strategic":0};accounts.forEach(a=>{if(tm[a.tier]!==undefined)tm[a.tier]++});
+  const mt=Math.max(...Object.values(tm),1);const tc_={"Tier 1":"var(--info)","Tier 2":"var(--accent)","Strategic":"var(--warn)"};
+  document.getElementById('sum-tier').innerHTML=Object.entries(tm).map(([t,c])=>`<div class="cat-row"><div class="cat-lbl">${t}</div><div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${Math.round(c/mt*100)}%;background:${tc_[t]}"></div></div><div class="cat-count">${c}</div></div>`).join('');
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════════════════════════════
+// ── EXPORT ────────────────────────────────────────────────────────
+function exportCSV(){
+  const h=["Name","Parent","Category","Tier","Action","Status","Score","DemandLow","DemandHigh","Confidence","Platforms","Pitch","Fulfil","ContactName","Designation","Email","Phone","LinkedIn","NextStep","Notes"];
+  const rows=accounts.map(a=>[a.name,a.parent,a.category,a.tier,a.action,a.status,a.score,a.demandLow,a.demandHigh,a.confidence||'',(a.platforms||[]).join('; '),a.pitch,a.fulfil,a.contact?.name||'',a.contact?.designation||'',a.contact?.email||'',a.contact?.phone||'',a.contact?.linkedin||'',a.contact?.nextstep||'',(a.notes||[]).map(n=>n.date+': '+n.text).join(' | ')].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
+  const csv=[h.join(','),...rows].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);
+  const el=document.createElement('a');el.href=url;el.download='wolvbot_crm.csv';el.click();URL.revokeObjectURL(url);
+  toast('Exported ✓');
+}
+
+// ── MODAL / TOAST ─────────────────────────────────────────────────
+function openAddModal(){ document.getElementById('add-modal').classList.add('show') }
+function closeAddModal(){ document.getElementById('add-modal').classList.remove('show') }
 document.getElementById('add-modal').addEventListener('click',function(e){if(e.target===this)closeAddModal()});
-document.getElementById('confirm-modal').addEventListener('click',function(e){if(e.target===this)closeConfirm()});
+
+let _tt;
+function toast(msg, err=false){
+  clearTimeout(_tt);
+  const el=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  el.classList.toggle('error-toast',err);
+  el.classList.add('show');
+  _tt=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// ── DEMO DATA ─────────────────────────────────────────────────────
+function getDemoAccounts(){
+  return [
+    {id:"acc_1",name:"HealthKart / MuscleBlaze",parent:"HealthKart",category:"Nutrition / Supplements",tier:"Tier 1",action:"Approach now",score:97,qc:5,sku:5,density:5,pilot:4,access:5,logo:5,demandLow:300,demandHigh:1000,confidence:"Medium",platforms:["Blinkit","Zepto","Instamart","Amazon","Flipkart","D2C"],pitch:"Compact supplement VMI node for Bangalore demand clusters.",fulfil:"Zippee + q-commerce signal",status:"Not Started",contact:{designation:"Head of Supply Chain / Q-Commerce"},notes:[]},
+    {id:"acc_2",name:"Mamaearth / Honasa",parent:"Honasa Consumer",category:"Beauty / Personal Care",tier:"Tier 1",action:"Approach now",score:97,qc:5,sku:5,density:5,pilot:4,access:5,logo:5,demandLow:250,demandHigh:900,confidence:"Medium",platforms:["Blinkit","Zepto","Instamart","Nykaa","Amazon","Flipkart","D2C"],pitch:"Beauty SKU micro-fulfilment with lower area and faster pick accuracy.",fulfil:"Q-commerce growth signal",status:"Not Started",contact:{},notes:[]},
+    {id:"acc_3",name:"Supertails",parent:"Supertails",category:"Pet Care",tier:"Tier 1",action:"Approach now",score:80,qc:4,sku:4,density:4,pilot:4,access:4,logo:4,demandLow:100,demandHigh:400,confidence:"Medium",platforms:["Own site","Blinkit","Zepto","Instamart","Amazon"],pitch:"Pet-care VMI node for fast-moving SKUs with safety stock buffer.",fulfil:"Zippee signal",status:"Not Started",contact:{},notes:[]},
+    {id:"acc_4",name:"boAt accessories",parent:"Imagine Marketing",category:"Electronics Accessories",tier:"Tier 1",action:"Approach now",score:83,qc:4,sku:5,density:4,pilot:3,access:4,logo:5,demandLow:100,demandHigh:500,confidence:"Low",platforms:["Blinkit","Zepto","Amazon","Flipkart"],pitch:"Compact high-value accessory storage for same-day fulfilment.",fulfil:"Pikndel signal",status:"Not Started",contact:{},notes:[]},
+    {id:"acc_5",name:"Haldiram's",parent:"Haldiram's",category:"Packaged Food / Snacks",tier:"Strategic",action:"Approach now",score:80,qc:5,sku:4,density:5,pilot:2,access:2,logo:5,demandLow:300,demandHigh:1200,confidence:"Low",platforms:["Blinkit","Zepto","Instamart","BB Now","Amazon"],pitch:"Regional distributor/VMI pilot for fast-moving snack SKUs.",fulfil:"Zippee ET signal",status:"Not Started",contact:{},notes:[]},
+  ];
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
 document.getElementById('page-crm').style.display = 'flex';
-populateCatDropdowns();
-loadFromSheet(); // boot: fetch from Google Sheets, fall back to defaults
+loadData();
+
 </script>
 </body>
 </html>
