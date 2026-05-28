@@ -272,6 +272,18 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   </div>
 </div>
 
+<!-- DEPLOY HELP BANNER -->
+<div id="deploy-banner" style="display:none;position:fixed;top:60px;left:0;right:0;z-index:200;background:#2a1a0a;border-bottom:1px solid rgba(232,160,58,.4);padding:10px 24px;display:none;align-items:center;justify-content:space-between;gap:12px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-size:16px">⚠️</span>
+    <div>
+      <div style="font-size:12px;font-weight:500;color:#e8a03a">Backend not responding — showing demo data</div>
+      <div style="font-size:11px;color:#9faa8e;margin-top:2px">Fix: In Apps Script → Deploy → New Deployment → Web App → <strong>Who has access: Anyone</strong> (not "Anyone with Google account")</div>
+    </div>
+  </div>
+  <button onclick="document.getElementById('deploy-banner').style.display='none'" style="background:transparent;border:none;color:#9faa8e;cursor:pointer;font-size:16px;flex-shrink:0">✕</button>
+</div>
+
 <!-- LOADING OVERLAY -->
 <div class="loading-overlay hidden" id="loading">
   <div class="spinner"></div>
@@ -437,7 +449,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 //  API: https://script.google.com/macros/s/AKfycby-Pps8uFmbVD9JVYxNdNpu8IQvSDE3r1UoN0qeLWVQnKLMEb1Yan-iauERDQDlckOm/exec
 // ══════════════════════════════════════════════════════════════════
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwllY2LN0KDVf835KzzPW26-cbbLbyFOW9C_KIipuXnN5B9RBUw_bDErpc8SjrOEAqnJg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbw5sENQadOusybQWlrEkA3ugydPHq7hGtiX_NdDLDHcyLKH1XK4dnXQuNb5V0FF027oaQ/exec';
 
 const CATEGORIES = ["Beauty / Personal Care","Beauty / Cosmetics","Premium Beauty / Ayurveda","Nutrition / Supplements","Wellness / Supplements","Health / Wellness Marketplace","Dermatology / Wellness","Kids Snacks / FMCG","Packaged Food / Snacks","Food / Staples / Wellness","F&B / Dairy","Beverages","Pet Care","Electronics Accessories","Comfort / Health Products","Jewellery / Accessories","Eyewear","Other"];
 const STATUSES = ["Not Started","Researching","Email Sent","Meeting Booked","In Discussion","Partner Confirmed","On Hold"];
@@ -474,19 +486,36 @@ function hideLoading(){document.getElementById('loading').classList.add('hidden'
 // ── API CALLS ─────────────────────────────────────────────────────
 async function apiFetch(params){
   const url = API_URL + '?' + new URLSearchParams(params);
-  const r = await fetch(url);
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  return r.json();
+  const r = await fetch(url, { redirect: 'follow' });
+  const text = await r.text();
+  try { return JSON.parse(text); }
+  catch(e2) { throw new Error('Bad JSON: ' + text.slice(0,120)); }
 }
 
 async function apiPost(body){
-  const r = await fetch(API_URL, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(body)
+  // Google Apps Script Web Apps are more reliable for browser writes via GET.
+  // This avoids CORS/preflight issues that can happen with POST from static hosting.
+  const params = new URLSearchParams();
+  params.set('action', body.action);
+
+  if (body.id) params.set('id', body.id);
+  if (body.noteId) params.set('noteId', body.noteId);
+  if (body.data) params.set('data', JSON.stringify(body.data));
+
+  const url = API_URL + '?' + params.toString();
+
+  const r = await fetch(url, {
+    method: 'GET',
+    redirect: 'follow'
   });
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  return r.json();
+
+  const text = await r.text();
+
+  try {
+    return JSON.parse(text);
+  } catch(e2) {
+    throw new Error('Bad JSON: ' + text.slice(0,120));
+  }
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────
@@ -511,7 +540,14 @@ async function loadData(){
     renderAccounts();
   } catch(e) {
     setSyncStatus('error','Sync failed');
-    toast('Could not reach backend: '+e.message+' — switching to demo mode', true);
+    // Show specific error to help diagnose
+    let msg = e.message || 'Unknown error';
+    if(msg.includes('Failed to fetch') || msg.includes('NetworkError'))
+      msg = 'Network error — check internet connection';
+    else if(msg.includes('Host not in allowlist'))
+      msg = 'Apps Script access error — redeploy as "Anyone" (see banner)';
+    toast('Backend error: ' + msg, true);
+    showDeployBanner();
     accounts = getDemoAccounts();
     DEMO_MODE = true;
     populateCatFilter();
@@ -646,6 +682,7 @@ async function addAccount(){
   const btn = document.getElementById('add-btn');
   btn.disabled=true; btn.textContent='Saving…';
   const data = {
+    id: newId,
     name,
     parent:    document.getElementById('m-parent').value.trim(),
     category:  document.getElementById('m-cat').value,
@@ -914,6 +951,11 @@ function exportCSV(){
 function openAddModal(){ document.getElementById('add-modal').classList.add('show') }
 function closeAddModal(){ document.getElementById('add-modal').classList.remove('show') }
 document.getElementById('add-modal').addEventListener('click',function(e){if(e.target===this)closeAddModal()});
+
+function showDeployBanner(){
+  const b = document.getElementById('deploy-banner');
+  if(b) b.style.display = 'flex';
+}
 
 let _tt;
 function toast(msg, err=false){
