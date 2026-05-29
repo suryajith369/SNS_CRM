@@ -625,7 +625,7 @@ async function saveEdit(id){
   a.action      = document.getElementById(`e-action-${id}`).value;
   a.tier        = document.getElementById(`e-tier-${id}`).value;
   a.score       = parseInt(document.getElementById(`e-score-${id}`).value)  || a.score;
-  a.confidence  = document.getElementById(`e-conf-${id}`).value;
+  // a.confidence  = document.getElementById(`e-conf-${id}`).value;
   a.demandLow   = parseInt(document.getElementById(`e-dlow-${id}`).value)   || a.demandLow;
   a.demandHigh  = parseInt(document.getElementById(`e-dhigh-${id}`).value)  || a.demandHigh;
   a.platforms   = document.getElementById(`e-plat-${id}`).value.split(',').map(s=>s.trim()).filter(Boolean);
@@ -935,7 +935,7 @@ function renderAccounts(){
         <div class="field-g"><div class="field-l">Parent Company</div><input class="finput" id="e-parent-${a.id}" value="${esc(a.parent||'')}"></div>
         <div class="field-g"><div class="field-l">Category</div><select class="fsel" id="e-cat-${a.id}">${CATEGORIES.map(c=>`<option${c===a.category?' selected':''}>${c}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Status</div><select class="fsel" id="e-status-${a.id}">${STATUSES.map(s=>`<option${s===a.status?' selected':''}>${s}</option>`).join('')}</select></div>
-        <div class="field-g"><div class="field-l">Action</div><select class="fsel" id="e-action-${a.id}">${['Approach now','Shortlist','Validate'].map(s=>`<option${s===a.action?' selected':''}>${s}</option>`).join('')}</select></div>
+        <div class="field-g"><div class="field-l">Action</div><select class="fsel" id="e-action-${a.id}">${['Approach Next','Approach now','Shortlist','Validate'].map(s=>`<option${s===a.action?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Tier</div><select class="fsel" id="e-tier-${a.id}">${['Tier 1','Tier 2','Strategic'].map(s=>`<option${s===a.tier?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Fit Score (0–100)</div><input class="finput" id="e-score-${a.id}" type="number" min="0" max="100" value="${a.score}"></div>
         <div class="field-g"><div class="field-l">Confidence</div><select class="fsel" id="e-conf-${a.id}">${['Low','Low-Medium','Medium','High'].map(s=>`<option${s===a.confidence?' selected':''}>${s}</option>`).join('')}</select></div>
