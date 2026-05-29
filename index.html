@@ -492,29 +492,50 @@ async function apiFetch(params){
   catch(e2) { throw new Error('Bad JSON: ' + text.slice(0,120)); }
 }
 
-async function apiPost(body){
-  // Google Apps Script Web Apps are more reliable for browser writes via GET.
-  // This avoids CORS/preflight issues that can happen with POST from static hosting.
-  const params = new URLSearchParams();
-  params.set('action', body.action);
+// async function apiPost(body){
+//   // Google Apps Script Web Apps are more reliable for browser writes via GET.
+//   // This avoids CORS/preflight issues that can happen with POST from static hosting.
+//   const params = new URLSearchParams();
+//   params.set('action', body.action);
 
-  if (body.id) params.set('id', body.id);
-  if (body.noteId) params.set('noteId', body.noteId);
-  if (body.data) params.set('data', JSON.stringify(body.data));
+//   if (body.id) params.set('id', body.id);
+//   if (body.noteId) params.set('noteId', body.noteId);
+//   if (body.data) params.set('data', JSON.stringify(body.data));
 
-  const url = API_URL + '?' + params.toString();
+//   const url = API_URL + '?' + params.toString();
 
-  const r = await fetch(url, {
-    method: 'GET',
-    redirect: 'follow'
-  });
+//   const r = await fetch(url, {
+//     method: 'GET',
+//     redirect: 'follow'
+//   });
 
-  const text = await r.text();
+//   const text = await r.text();
 
+//   try {
+//     return JSON.parse(text);
+//   } catch(e2) {
+//     throw new Error('Bad JSON: ' + text.slice(0,120));
+//   }
+// }
+  async function apiPost(body){
+  // Fire-and-forget write to Google Apps Script.
+  // This avoids Apps Script CORS/redirect response issues that cause infinite "Saving..."
   try {
-    return JSON.parse(text);
-  } catch(e2) {
-    throw new Error('Bad JSON: ' + text.slice(0,120));
+    await fetch(API_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(body),
+      redirect: 'follow'
+    });
+
+    return { ok: true };
+
+  } catch (err) {
+    console.error('apiPost failed:', err);
+    throw err;
   }
 }
 
@@ -676,47 +697,146 @@ async function deleteAccount(id){
   delete openRows[id]; renderAccounts(); toast('Account deleted');
 }
 
-async function addAccount(){
+// async function addAccount(){
+//   const name = document.getElementById('m-name').value.trim();
+//   if(!name){ alert('Account name is required'); return; }
+//   const btn = document.getElementById('add-btn');
+//   btn.disabled=true; btn.textContent='Saving…';
+//   const data = {
+//     id: newId,
+//     name,
+//     parent:    document.getElementById('m-parent').value.trim(),
+//     category:  document.getElementById('m-cat').value,
+//     tier:      document.getElementById('m-tier').value,
+//     action:    document.getElementById('m-action').value,
+//     score:     parseInt(document.getElementById('m-score').value)||70,
+//     demandLow: parseInt(document.getElementById('m-dlow').value)||0,
+//     demandHigh:parseInt(document.getElementById('m-dhigh').value)||0,
+//     platforms: document.getElementById('m-platforms').value.split(',').map(s=>s.trim()).filter(Boolean),
+//     pitch:     document.getElementById('m-pitch').value.trim(),
+//     fulfil:    document.getElementById('m-fulfil').value.trim(),
+//     qc:3, sku:3, density:3, pilot:3, access:3, logo:3, confidence:'Low',
+//     contact: {
+//       name:        document.getElementById('m-cname').value.trim(),
+//       designation: document.getElementById('m-cdesig').value.trim(),
+//       email:       document.getElementById('m-cemail').value.trim(),
+//       phone:       document.getElementById('m-cphone').value.trim(),
+//       linkedin:    document.getElementById('m-clinkedin').value.trim(),
+//     }
+//   };
+//   let newId = 'acc_'+Date.now();
+//   if(!DEMO_MODE){
+//     setSyncStatus('syncing','Saving…');
+//     try {
+//       const res = await apiPost({action:'addAccount', data});
+//       if(res.error) throw new Error(res.error);
+//       if(res.id) newId = res.id;
+//       setSyncStatus('ok','Saved · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
+//     } catch(e){ setSyncStatus('error','Save failed'); toast('Save failed: '+e.message, true); btn.disabled=false; btn.textContent='Add Account'; return; }
+//   }
+//   accounts.unshift({...data, id:newId, status:'Not Started', notes:[]});
+//   closeAddModal(); curFilter='all'; renderAccounts(); toast('Account added ✓');
+//   btn.disabled=false; btn.textContent='Add Account';
+//   ['m-name','m-parent','m-platforms','m-pitch','m-fulfil','m-dlow','m-dhigh','m-score','m-cname','m-cdesig','m-cemail','m-cphone','m-clinkedin'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+// }
+  async function addAccount(){
   const name = document.getElementById('m-name').value.trim();
-  if(!name){ alert('Account name is required'); return; }
+
+  if(!name){
+    alert('Account name is required');
+    return;
+  }
+
   const btn = document.getElementById('add-btn');
-  btn.disabled=true; btn.textContent='Saving…';
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  const newId = 'acc_' + Date.now();
+
   const data = {
     id: newId,
     name,
-    parent:    document.getElementById('m-parent').value.trim(),
-    category:  document.getElementById('m-cat').value,
-    tier:      document.getElementById('m-tier').value,
-    action:    document.getElementById('m-action').value,
-    score:     parseInt(document.getElementById('m-score').value)||70,
-    demandLow: parseInt(document.getElementById('m-dlow').value)||0,
-    demandHigh:parseInt(document.getElementById('m-dhigh').value)||0,
-    platforms: document.getElementById('m-platforms').value.split(',').map(s=>s.trim()).filter(Boolean),
-    pitch:     document.getElementById('m-pitch').value.trim(),
-    fulfil:    document.getElementById('m-fulfil').value.trim(),
-    qc:3, sku:3, density:3, pilot:3, access:3, logo:3, confidence:'Low',
+    parent: document.getElementById('m-parent').value.trim(),
+    category: document.getElementById('m-cat').value,
+    tier: document.getElementById('m-tier').value,
+    action: document.getElementById('m-action').value,
+    score: parseInt(document.getElementById('m-score').value) || 70,
+    demandLow: parseInt(document.getElementById('m-dlow').value) || 0,
+    demandHigh: parseInt(document.getElementById('m-dhigh').value) || 0,
+    platforms: document.getElementById('m-platforms').value
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean),
+    pitch: document.getElementById('m-pitch').value.trim(),
+    fulfil: document.getElementById('m-fulfil').value.trim(),
+    qc: 3,
+    sku: 3,
+    density: 3,
+    pilot: 3,
+    access: 3,
+    logo: 3,
+    confidence: 'Low',
+    status: 'Not Started',
     contact: {
-      name:        document.getElementById('m-cname').value.trim(),
+      name: document.getElementById('m-cname').value.trim(),
       designation: document.getElementById('m-cdesig').value.trim(),
-      email:       document.getElementById('m-cemail').value.trim(),
-      phone:       document.getElementById('m-cphone').value.trim(),
-      linkedin:    document.getElementById('m-clinkedin').value.trim(),
+      email: document.getElementById('m-cemail').value.trim(),
+      phone: document.getElementById('m-cphone').value.trim(),
+      linkedin: document.getElementById('m-clinkedin').value.trim(),
+      nextstep: ''
     }
   };
-  let newId = 'acc_'+Date.now();
-  if(!DEMO_MODE){
-    setSyncStatus('syncing','Saving…');
-    try {
-      const res = await apiPost({action:'addAccount', data});
-      if(res.error) throw new Error(res.error);
-      if(res.id) newId = res.id;
-      setSyncStatus('ok','Saved · '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}));
-    } catch(e){ setSyncStatus('error','Save failed'); toast('Save failed: '+e.message, true); btn.disabled=false; btn.textContent='Add Account'; return; }
+
+  try {
+    if(!DEMO_MODE){
+      setSyncStatus('syncing','Saving…');
+      await apiPost({
+        action: 'addAccount',
+        data
+      });
+
+      setSyncStatus(
+        'ok',
+        'Saved · ' + new Date().toLocaleTimeString('en-IN', {
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      );
+    }
+
+    accounts.unshift({
+      ...data,
+      notes: []
+    });
+
+    closeAddModal();
+    curFilter = 'all';
+    renderAccounts();
+    toast('Account added ✓');
+
+    [
+      'm-name','m-parent','m-platforms','m-pitch','m-fulfil',
+      'm-dlow','m-dhigh','m-score','m-cname','m-cdesig',
+      'm-cemail','m-cphone','m-clinkedin'
+    ].forEach(i => {
+      const el = document.getElementById(i);
+      if(el) el.value = '';
+    });
+
+    // Optional: reload from backend after short delay to confirm sync
+    setTimeout(() => {
+      if(!DEMO_MODE) refreshData();
+    }, 1800);
+
+  } catch(e) {
+    console.error(e);
+    setSyncStatus('error','Save failed');
+    toast('Save failed: ' + e.message, true);
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Add Account';
   }
-  accounts.unshift({...data, id:newId, status:'Not Started', notes:[]});
-  closeAddModal(); curFilter='all'; renderAccounts(); toast('Account added ✓');
-  btn.disabled=false; btn.textContent='Add Account';
-  ['m-name','m-parent','m-platforms','m-pitch','m-fulfil','m-dlow','m-dhigh','m-score','m-cname','m-cdesig','m-cemail','m-cphone','m-clinkedin'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
 }
 
 // ── RENDER ────────────────────────────────────────────────────────
