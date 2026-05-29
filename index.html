@@ -625,7 +625,7 @@ async function saveEdit(id){
   a.action      = document.getElementById(`e-action-${id}`).value;
   a.tier        = document.getElementById(`e-tier-${id}`).value;
   a.score       = parseInt(document.getElementById(`e-score-${id}`).value)  || a.score;
-  // a.confidence  = document.getElementById(`e-conf-${id}`).value;
+  // a.  = document.getElementById(`e-conf-${id}`).value;
   a.demandLow   = parseInt(document.getElementById(`e-dlow-${id}`).value)   || a.demandLow;
   a.demandHigh  = parseInt(document.getElementById(`e-dhigh-${id}`).value)  || a.demandHigh;
   a.platforms   = document.getElementById(`e-plat-${id}`).value.split(',').map(s=>s.trim()).filter(Boolean);
@@ -715,7 +715,7 @@ async function deleteAccount(id){
 //     platforms: document.getElementById('m-platforms').value.split(',').map(s=>s.trim()).filter(Boolean),
 //     pitch:     document.getElementById('m-pitch').value.trim(),
 //     fulfil:    document.getElementById('m-fulfil').value.trim(),
-//     qc:3, sku:3, density:3, pilot:3, access:3, logo:3, confidence:'Low',
+//     qc:3, sku:3, density:3, pilot:3, access:3, logo:3, :'Low',
 //     contact: {
 //       name:        document.getElementById('m-cname').value.trim(),
 //       designation: document.getElementById('m-cdesig').value.trim(),
@@ -775,7 +775,7 @@ async function deleteAccount(id){
     pilot: 3,
     access: 3,
     logo: 3,
-    confidence: 'Low',
+    // : 'Low',
     status: 'Not Started',
     contact: {
       name: document.getElementById('m-cname').value.trim(),
@@ -898,7 +898,7 @@ function renderAccounts(){
       <div class="ov-grid">
         <div class="info-b"><div class="info-lbl">Pitch Angle</div><div class="info-val">${esc(a.pitch)||'—'}</div></div>
         <div class="info-b"><div class="info-lbl">Fulfilment Signal</div><div class="info-val">${esc(a.fulfil)||'—'}</div></div>
-        <div class="info-b"><div class="info-lbl">Demand / Day</div><div class="info-val green">${a.demandLow}–${a.demandHigh} <span style="font-size:10px;color:var(--text3)">(${a.confidence||'—'})</span></div></div>
+        <div class="info-b"><div class="info-lbl">Demand / Day</div><div class="info-val green">${a.demandLow}–${a.demandHigh} <span style="font-size:10px;color:var(--text3)">(${a.||'—'})</span></div></div>
         <div class="info-b ov-full"><div class="info-lbl">Platforms</div><div class="ptags">${(a.platforms||[]).map(p=>`<span class="ptag">${esc(p)}</span>`).join('')}</div></div>
       </div>
       <div class="info-lbl" style="margin-bottom:8px">Dimension Scores</div>
@@ -938,7 +938,7 @@ function renderAccounts(){
         <div class="field-g"><div class="field-l">Action</div><select class="fsel" id="e-action-${a.id}">${['Approach Next','Approach now','Shortlist','Validate'].map(s=>`<option${s===a.action?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Tier</div><select class="fsel" id="e-tier-${a.id}">${['Tier 1','Tier 2','Strategic'].map(s=>`<option${s===a.tier?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Fit Score (0–100)</div><input class="finput" id="e-score-${a.id}" type="number" min="0" max="100" value="${a.score}"></div>
-        <div class="field-g"><div class="field-l">Confidence</div><select class="fsel" id="e-conf-${a.id}">${['Low','Low-Medium','Medium','High'].map(s=>`<option${s===a.confidence?' selected':''}>${s}</option>`).join('')}</select></div>
+        <div class="field-g"><div class="field-l">Confidence</div><select class="fsel" id="e-conf-${a.id}">${['Low','Low-Medium','Medium','High'].map(s=>`<option${s===a.?' selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field-g"><div class="field-l">Demand Low /day</div><input class="finput" id="e-dlow-${a.id}" type="number" value="${a.demandLow}"></div>
         <div class="field-g"><div class="field-l">Demand High /day</div><input class="finput" id="e-dhigh-${a.id}" type="number" value="${a.demandHigh}"></div>
         <div class="field-g edit-full"><div class="field-l">Platforms (comma separated)</div><input class="finput" id="e-plat-${a.id}" value="${(a.platforms||[]).join(', ')}"></div>
@@ -1060,7 +1060,7 @@ function renderSummary(){
 // ── EXPORT ────────────────────────────────────────────────────────
 function exportCSV(){
   const h=["Name","Parent","Category","Tier","Action","Status","Score","DemandLow","DemandHigh","Confidence","Platforms","Pitch","Fulfil","ContactName","Designation","Email","Phone","LinkedIn","NextStep","Notes"];
-  const rows=accounts.map(a=>[a.name,a.parent,a.category,a.tier,a.action,a.status,a.score,a.demandLow,a.demandHigh,a.confidence||'',(a.platforms||[]).join('; '),a.pitch,a.fulfil,a.contact?.name||'',a.contact?.designation||'',a.contact?.email||'',a.contact?.phone||'',a.contact?.linkedin||'',a.contact?.nextstep||'',(a.notes||[]).map(n=>n.date+': '+n.text).join(' | ')].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
+  const rows=accounts.map(a=>[a.name,a.parent,a.category,a.tier,a.action,a.status,a.score,a.demandLow,a.demandHigh,a.||'',(a.platforms||[]).join('; '),a.pitch,a.fulfil,a.contact?.name||'',a.contact?.designation||'',a.contact?.email||'',a.contact?.phone||'',a.contact?.linkedin||'',a.contact?.nextstep||'',(a.notes||[]).map(n=>n.date+': '+n.text).join(' | ')].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
   const csv=[h.join(','),...rows].join('\n');
   const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);
   const el=document.createElement('a');el.href=url;el.download='wolvbot_crm.csv';el.click();URL.revokeObjectURL(url);
@@ -1108,7 +1108,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:300,
       demandHigh:1200,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Blinkit","Zepto","Instamart","BB Now","Amazon"],
       pitch:"Anchor snack VMI slot for fast-moving chips, namkeen, biscuits and impulse SKUs in Bangalore.",
       fulfil:"Cash-cow q-commerce / distributor-led FMCG target",
@@ -1139,7 +1139,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:250,
       demandHigh:1000,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Blinkit","Zepto","Instamart","BB Now","Amazon"],
       pitch:"Fast-moving food and snack VMI slot for biscuits, noodles, packaged snacks and impulse SKUs.",
       fulfil:"Distributor-first route preferred over direct HQ approach",
@@ -1170,7 +1170,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:250,
       demandHigh:900,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Blinkit","Zepto","Instamart","BB Now","Modern Trade"],
       pitch:"Daily-use personal care VMI slot for shampoo, soap, face wash, skincare and compact FMCG packs.",
       fulfil:"Distributor-first route; avoid HQ-first sales cycle",
@@ -1201,7 +1201,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:200,
       demandHigh:800,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Blinkit","Zepto","Instamart","BB Now","Modern Trade"],
       pitch:"Compact daily-use personal care VMI slot for high-repeat P&G SKUs.",
       fulfil:"Distributor-first route; target fast-moving SKUs only",
@@ -1232,7 +1232,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:150,
       demandHigh:600,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Blinkit","Zepto","Instamart","Amazon","Pharmacy channels"],
       pitch:"High-AOV wellness and personal care VMI slot for compact OTC, ayurveda and immunity SKUs.",
       fulfil:"Distributor / direct business route",
@@ -1263,7 +1263,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:120,
       demandHigh:500,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Blinkit","Zepto","Instamart","BB Now","Modern Trade"],
       pitch:"Compact oral-care VMI slot for toothpaste, toothbrush, mouthwash and high-repeat household SKUs.",
       fulfil:"Distributor-first route",
@@ -1294,7 +1294,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:100,
       demandHigh:450,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Instamart","Amazon","Pharmacy channels"],
       pitch:"Compact wellness and ayurveda VMI slot for high-AOV, repeat-use SKUs.",
       fulfil:"Distributor-first route",
@@ -1325,7 +1325,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:100,
       demandHigh:400,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Instamart","BB Now","Modern Trade"],
       pitch:"Compact home-care VMI slot for dishwash, cleaners and small-format high-repeat SKUs.",
       fulfil:"Distributor-first route; avoid bulky packs",
@@ -1356,7 +1356,7 @@ function getDemoAccounts(){
       logo:3,
       demandLow:75,
       demandHigh:300,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Instamart","Amazon","D2C"],
       pitch:"50-bin compact FMCG pilot for kids snacks and fast-moving q-commerce stock availability.",
       fulfil:"WareIQ signal / D2C fulfilment fit",
@@ -1387,7 +1387,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:100,
       demandHigh:450,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Instamart","Amazon","D2C"],
       pitch:"Premium clean-snack VMI slot for protein bars, sachets and compact high-AOV food SKUs.",
       fulfil:"Founder-led premium snack / urban Bangalore fit",
@@ -1418,7 +1418,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:50,
       demandHigh:250,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Amazon","Flipkart","Blinkit","Zepto","D2C"],
       pitch:"60-bin supplement VMI pilot for compact pouches, bottles and repeat wellness SKUs.",
       fulfil:"WareIQ signal / supplement VMI fit",
@@ -1449,7 +1449,7 @@ function getDemoAccounts(){
       logo:3,
       demandLow:30,
       demandHigh:180,
-      confidence:"Low",
+      :"Low",
       platforms:["Own site","Amazon","Selected q-commerce"],
       pitch:"35-bin controlled derma SKU VMI trial for compact, high-value wellness products.",
       fulfil:"Rapid delivery / controlled SKU storage fit",
@@ -1480,7 +1480,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:100,
       demandHigh:400,
-      confidence:"Medium",
+      :"Medium",
       platforms:["Own site","Blinkit","Zepto","Instamart","Amazon"],
       pitch:"50-bin pet essentials VMI slot for compact repeat SKUs; exclude bulky pet food bags.",
       fulfil:"Bangalore-relevant pet-care brand",
@@ -1511,7 +1511,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:80,
       demandHigh:350,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Instamart","Amazon","D2C"],
       pitch:"45-bin hygiene VMI pilot for compact monthly repeat SKUs with strong retention.",
       fulfil:"Subscription-native hygiene category",
@@ -1542,7 +1542,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:80,
       demandHigh:350,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","D2C","Marketplaces"],
       pitch:"60-bin innerwear pilot for flat-pack, high-repeat q-commerce SKUs.",
       fulfil:"Flat-pack fashion / q-commerce fit",
@@ -1573,7 +1573,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:60,
       demandHigh:250,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["D2C","Marketplaces","Q-commerce checks"],
       pitch:"45-bin core innerwear and basics VMI pilot; avoid high-churn seasonal SKUs.",
       fulfil:"Dark-store partner positioning",
@@ -1604,7 +1604,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:100,
       demandHigh:500,
-      confidence:"Low",
+      :"Low",
       platforms:["Own site","Amazon","Flipkart","Q-commerce checks"],
       pitch:"90-bin wellness marketplace pool for top supplement and OTC sellers.",
       fulfil:"Marketplace pool / multi-brand wellness inventory",
@@ -1635,7 +1635,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:500,
       demandHigh:1500,
-      confidence:"Low",
+      :"Low",
       platforms:["Purplle marketplace","Brand sellers","App"],
       pitch:"100-bin beauty marketplace pool for fast-moving seller inventory.",
       fulfil:"Marketplace seller aggregation",
@@ -1666,7 +1666,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:100,
       demandHigh:500,
-      confidence:"Low",
+      :"Low",
       platforms:["Blinkit","Zepto","Instamart","Amazon","Flipkart"],
       pitch:"60-bin high-AOV accessory slot for cables, earbuds, cases and fast-moving electronics accessories.",
       fulfil:"Marketplace / q-commerce replenishment fit",
@@ -1697,7 +1697,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:100,
       demandHigh:450,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Nykaa","Amazon","D2C"],
       pitch:"50-bin science skincare VMI slot for serums, sunscreen and compact tubes.",
       fulfil:"HUL portfolio / distributor route",
@@ -1728,7 +1728,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:80,
       demandHigh:350,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Amazon","D2C","Pharmacy channels"],
       pitch:"50-bin nano-supplement VMI slot for melts, gummies, sachets and high-AOV wellness SKUs.",
       fulfil:"HUL wellness distributor route",
@@ -1759,7 +1759,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:80,
       demandHigh:400,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Nykaa","Amazon","D2C"],
       pitch:"50-bin cosmetics pilot for compact makeup SKUs and omnichannel city-level fulfilment.",
       fulfil:"BPC high-AOV compact SKU fit",
@@ -1790,7 +1790,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:60,
       demandHigh:250,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Amazon","Flipkart","D2C","Q-commerce checks"],
       pitch:"40-bin grooming slot for razor packs, kits and repeat-use men's grooming SKUs.",
       fulfil:"Ritual repeat / compact grooming category",
@@ -1821,7 +1821,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:60,
       demandHigh:300,
-      confidence:"Low-Medium",
+      :"Low-Medium",
       platforms:["Blinkit","Zepto","Nykaa","Amazon","D2C"],
       pitch:"45-bin clean beauty VMI slot for compact skincare and haircare SKUs.",
       fulfil:"BPC repeat category",
@@ -1852,7 +1852,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:50,
       demandHigh:250,
-      confidence:"Low",
+      :"Low",
       platforms:["Blinkit","Zepto","Nykaa","Amazon","D2C"],
       pitch:"40-bin skincare/personal care slot for compact bottles and tubes.",
       fulfil:"Gen Z BPC brand / compact SKU fit",
@@ -1883,7 +1883,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:80,
       demandHigh:400,
-      confidence:"Low",
+      :"Low",
       platforms:["D2C","Marketplaces","Q-commerce checks"],
       pitch:"40-bin basics-only slot for evergreen SKUs; avoid drop-led high-churn inventory.",
       fulfil:"Fashion wave / later-stage target",
@@ -1914,7 +1914,7 @@ function getDemoAccounts(){
       logo:4,
       demandLow:60,
       demandHigh:300,
-      confidence:"Low",
+      :"Low",
       platforms:["D2C","Marketplaces","Offline stores"],
       pitch:"40-bin seasonal flex slot for high-demand drops, evergreen merchandise and compact accessories.",
       fulfil:"Later-stage partnership after prototype proof",
@@ -1945,7 +1945,7 @@ function getDemoAccounts(){
       logo:3,
       demandLow:30,
       demandHigh:150,
-      confidence:"Low",
+      :"Low",
       platforms:["D2C","Marketplaces","Offline checks"],
       pitch:"30-bin accessory trial for wallets, compact bags and high-AOV accessories.",
       fulfil:"Accessory fit but not day-one cash cow",
@@ -1976,7 +1976,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:50,
       demandHigh:300,
-      confidence:"Low",
+      :"Low",
       platforms:["Own stores","Own site","Selected q-commerce"],
       pitch:"40-bin contact lens and eyewear accessory replenishment slot for compact monthly repeat SKUs.",
       fulfil:"Dark-store / ops route",
@@ -2007,7 +2007,7 @@ function getDemoAccounts(){
       logo:5,
       demandLow:100,
       demandHigh:500,
-      confidence:"Low",
+      :"Low",
       platforms:["1mg","PharmEasy","OTC sellers","Q-commerce checks"],
       pitch:"70-bin OTC seller pool for compact vitamins, pain relief and health SKUs.",
       fulfil:"Strategic marketplace play",
